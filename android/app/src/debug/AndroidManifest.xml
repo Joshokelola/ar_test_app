@@ -10,8 +10,6 @@
      (https://developers.google.com/ar/devices). -->
 <uses-feature android:name="android.hardware.camera.ar" />
 
-<application …>
-    …
 
     <!-- "AR Required" app, requires "Google Play Services for AR" (ARCore)
          to be installed, as the app does not include any non-AR features. -->
