@@ -55,7 +55,7 @@ class GameHome extends StatelessWidget {
                           child: const CircleAvatar(
                             radius: 30,
                             backgroundImage:
-                                AssetImage('assets/profile_image.png'),
+                                AssetImage('assets/avatar.jpg',),
                           ),
                         ),
                         Container(
