@@ -1,4 +1,4 @@
-import 'package:ar_test/ar_test_page.dart';
+import 'package:ar_test/utils/navbar.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -60,7 +60,7 @@ class OnboardingScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ArTestPage()
+                              builder: (context) => const AppBottBar()
                       )
                     );
                     },

@@ -32,7 +32,7 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: colorPrimary,
+      color: colorBl,
       child: const Center(
         child: Image(
           image: AssetImage('assets/a1.png'),
