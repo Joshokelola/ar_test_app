@@ -17,7 +17,7 @@ class _SplashscreenState extends State<Splashscreen> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 2),
       () {
         Navigator.pushReplacement(
           context,
@@ -31,11 +31,18 @@ class _SplashscreenState extends State<Splashscreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: colorBl,
-      child: const Center(
-        child: Image(
-          image: AssetImage('assets/a1.png'),
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          color: Colors.white,
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image(
+                image: AssetImage('assets/treasure_chest.png'),
+              ),
+            ],
+          ),
         ),
       ),
     );

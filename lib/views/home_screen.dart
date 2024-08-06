@@ -1,6 +1,11 @@
+import 'dart:ui';
+
+import 'package:ar_test/utils/constants.dart';
+import 'package:ar_test/views/profile.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/constants.dart';
+import '../ar_test_page.dart';
+import 'game_play.dart';
 
 class GameHome extends StatelessWidget {
   const GameHome({super.key});
@@ -8,60 +13,117 @@ class GameHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 40),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const CircleAvatar(
-                    radius: 25,
-                    backgroundImage: AssetImage('assets/profile_image.png'),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        color: colorPrimary),
-                    child: const Row(
+        child: Container(
+          height: MediaQuery.sizeOf(context).height,
+          width: MediaQuery.sizeOf(context).width,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/maps background.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+            child: Container(
+              height: MediaQuery.sizeOf(context).height,
+              width: MediaQuery.sizeOf(context).width,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.white70, Colors.white],
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.white,
-                            radius: 14,
-                            child: Icon(
-                              Icons.star,
-                              color: Colors.yellow,
-                              size: 20,
-                            )),
-                        SizedBox(width: 5),
-                        Text('12560', style: TextStyle(fontSize: 20, color: Colors.white,)),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ProfilePage()),
+                            );
+                          },
+                          child: const CircleAvatar(
+                            radius: 30,
+                            backgroundImage:
+                                AssetImage('assets/avatar.jpg',),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            color: colorPrimary,
+                          ),
+                          child: const Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 14,
+                                child: Icon(
+                                  Icons.star,
+                                  color: Colors.yellow,
+                                  size: 20,
+                                ),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                '12560',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 40),
+                    const Text(
+                      'Let’s play &\nDiscover Nigeria',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GameOptionCard('Start Hunt', 'assets/treasure.png',
+                                const ArTestPage()),
+                            GameOptionCard('View Map',
+                                'assets/adventure_icon.png', const ArenaSelect()),
+                          ],
+                        ),
+                        const SizedBox(height: 24),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GameOptionCard('Artefacts',
+                                'assets/Diamond lime.png', const ArTestPage()),
+                            GameOptionCard('Quests',
+                                'assets/daily.png', const ArTestPage()),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 20),
-              const Text(
-                'Let’s play &\nDiscover Nigeria',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                childAspectRatio: 1.5,
-                children: [
-                  GameCategoryCard('Treasure Hunt', 'assets/treasure.png'),
-                  GameCategoryCard('View Map', 'assets/map_icon.png'),
-                  GameCategoryCard('Artifacts', 'assets/Gem orange.png'),
-                  GameCategoryCard('Daily Challenges', 'assets/icons8-daily-94.png'),
-                ],
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -69,19 +131,54 @@ class GameHome extends StatelessWidget {
   }
 }
 
-class GameCategoryCard extends StatelessWidget {
+class GameOptionCard extends StatelessWidget {
   final String title;
   final String icon;
+  final Widget page;
 
-  GameCategoryCard(this.title, this.icon);
+  GameOptionCard(this.title, this.icon, this.page);
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: 30,
-      backgroundColor: Colors.white,
-      child: Center(
-        child: Image.asset(icon),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => page),
+        );
+      },
+      child: Container(
+        height: 140,
+        width: 140,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: greyBG),
+          boxShadow: const [
+            BoxShadow(
+                color: Colors.black26, offset: Offset(0.7, 0.5), blurRadius: 2)
+          ],
+          color: Colors.white,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(icon, height: 36, width: 36),
+            const SizedBox(height: 12),
+            Container(
+              alignment: Alignment.center,
+              width: 100,
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
