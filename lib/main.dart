@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'ar_test_page.dart';
+import 'presentation/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,12 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Heritage Hunt',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ArTestPage(),
+      home: const GameHome(),
     );
   }
 }
