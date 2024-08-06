@@ -81,9 +81,9 @@ class ArTestPageState extends State<ArTestPage> {
     controller.addArCoreNode(node);
   }
 
-  @override
-  void dispose() {
-    arCoreController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   arCoreController.dispose();
+  //   super.dispose();
+  // }
 }

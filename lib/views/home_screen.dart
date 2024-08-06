@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/constants.dart';
+
 class GameHome extends StatelessWidget {
   const GameHome({super.key});
 
@@ -16,16 +18,16 @@ class GameHome extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 25,
                     backgroundImage: AssetImage('assets/profile_image.png'),
                   ),
                   Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24),
-                        color: Colors.green),
-                    child: Row(
+                        color: colorPrimary),
+                    child: const Row(
                       children: [
                         CircleAvatar(
                           backgroundColor: Colors.white,
@@ -47,16 +49,16 @@ class GameHome extends StatelessWidget {
                 'Let’s play &\nDiscover Nigeria',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               GridView.count(
                 crossAxisCount: 2,
                 shrinkWrap: true,
                 childAspectRatio: 1.5,
                 children: [
-                  GameCategoryCard('Racing', Icons.directions_car),
-                  GameCategoryCard('Puzzle', Icons.extension),
-                  GameCategoryCard('Sport', Icons.sports_basketball),
-                  GameCategoryCard('Strategy', Icons.king_bed),
+                  GameCategoryCard('Treasure Hunt', 'assets/treasure.png'),
+                  GameCategoryCard('View Map', 'assets/map_icon.png'),
+                  GameCategoryCard('Artifacts', 'assets/Gem orange.png'),
+                  GameCategoryCard('Daily Challenges', 'assets/icons8-daily-94.png'),
                 ],
               ),
             ],
@@ -69,7 +71,7 @@ class GameHome extends StatelessWidget {
 
 class GameCategoryCard extends StatelessWidget {
   final String title;
-  final IconData icon;
+  final String icon;
 
   GameCategoryCard(this.title, this.icon);
 
@@ -79,7 +81,7 @@ class GameCategoryCard extends StatelessWidget {
       radius: 30,
       backgroundColor: Colors.white,
       child: Center(
-        child: Image.asset('assets/treasure.png'),
+        child: Image.asset(icon),
       ),
     );
   }

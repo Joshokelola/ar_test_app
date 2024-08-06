@@ -31,8 +31,8 @@ class _AppBottBarState extends State<AppBottBar> {
   ];
 
   final List<Widget> _pages = [
-    const ArTestPage(),
-    const OnboardingScreen(), //dummy page
+    const HomeScreen(),
+    const ArTestPage(), //dummy page
     const ProfilePage(), //dummy duplicate page
     const ProfilePage(),
   ];
