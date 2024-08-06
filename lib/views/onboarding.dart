@@ -15,8 +15,9 @@ class OnboardingScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                const SizedBox(height: 30),
                 Image.asset(
-                  'assets/a1.png',
+                  'assets/a2.png',
                   height: 450,
                 ),
                 const SizedBox(height: 30),
@@ -28,7 +29,7 @@ class OnboardingScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: const Text(
-                    'Strategy',
+                    'Culture',
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.black38,
@@ -38,7 +39,7 @@ class OnboardingScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Clash of Clans',
+                  'Heritage Hunt',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -46,7 +47,7 @@ class OnboardingScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Let\'s play and enjoy the game and get an amazing experience!',
+                  'Play and learn about Nigeria\'s heritages and rich culture in this multiplayer AR game!',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 16,
