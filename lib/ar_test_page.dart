@@ -9,7 +9,7 @@ class ArTestPage extends StatefulWidget {
   ArTestPageState createState() => ArTestPageState();
 }
 
-class ArTestPageState extends State<ArTestPage> {
+class ArTestPageState extends State<ArTestPage> with AutomaticKeepAliveClientMixin{
   late ArCoreController arCoreController;
 
   @override
@@ -80,6 +80,12 @@ class ArTestPageState extends State<ArTestPage> {
     );
     controller.addArCoreNode(node);
   }
+  
+
+  //Potentially risky code, we do not want to keep the tab persisted all the time
+  //TODO: Find a more performant way of keeping the tab alive.
+  @override
+  bool get wantKeepAlive => true;
 
   // @override
  // void dispose() {
