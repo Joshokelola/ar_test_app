@@ -1,5 +1,5 @@
-import 'package:ar_test/ar_test_page.dart';
 import 'package:ar_test/utils/constants.dart';
+import 'package:ar_test/views/game_play.dart';
 import 'package:flutter/material.dart';
 
 import '../views/onboarding.dart';
@@ -31,7 +31,7 @@ class _AppBottBarState extends State<AppBottBar> {
   ];
 
   final List<Widget> _pages = [
-    const ArTestPage(),
+    const ArenaSelect(),
     const OnboardingScreen(), //dummy page
     const ProfilePage(), //dummy duplicate page
     const ProfilePage(),

@@ -36,7 +36,7 @@ class ArTestPageState extends State<ArTestPage> {
 
   void _addSphere(ArCoreController controller) {
     final material = ArCoreMaterial(
-        color: Color.fromARGB(120, 66, 134, 244));
+        color: const Color.fromARGB(120, 66, 134, 244));
     final sphere = ArCoreSphere(
       materials: [material],
       radius: 0.1,
@@ -67,7 +67,7 @@ class ArTestPageState extends State<ArTestPage> {
 
   void _addCube(ArCoreController controller) {
     final material = ArCoreMaterial(
-      color: Color.fromARGB(120, 66, 134, 244),
+      color: const Color.fromARGB(120, 66, 134, 244),
       metallic: 1.0,
     );
     final cube = ArCoreCube(
