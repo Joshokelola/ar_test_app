@@ -16,15 +16,24 @@ class ArTestPageState extends State<ArTestPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Hello World'),
+        home: Scaffold(
+          body: SafeArea(
+            child: Stack(
+                children: [
+            Container(
+            height: MediaQuery.sizeOf(context).height,
+            width: MediaQuery
+                .sizeOf(context)
+                .width,
+            child: ArCoreView(
+            onArCoreViewCreated: _onArCoreViewCreated,
+            enableTapRecognizer: true,
+          ),
         ),
-        body: ArCoreView(
-          onArCoreViewCreated: _onArCoreViewCreated,
-          enableTapRecognizer: true,
-        ),
-      ),
+        ]
+    ),)
+    )
+    ,
     );
   }
 
@@ -35,15 +44,17 @@ class ArTestPageState extends State<ArTestPage> {
     _addCylindre(arCoreController);
     _addCube(arCoreController);
   }
-void _handleOnPlaneTap(List<ArCoreHitTestResult> hits) {
-  if (hits.isNotEmpty) {
-    final hit = hits.first;
-    _addImage(hit);
+
+  void _handleOnPlaneTap(List<ArCoreHitTestResult> hits) {
+    if (hits.isNotEmpty) {
+      final hit = hits.first;
+      _addImage(hit);
+    }
   }
-}
+
   Future _addImage(ArCoreHitTestResult hit) async {
     final bytes =
-        (await rootBundle.load('assets/character.png')).buffer.asUint8List();
+    (await rootBundle.load('assets/character.png')).buffer.asUint8List();
 
     final earth = ArCoreNode(
       image: ArCoreImage(bytes: bytes, width: 500, height: 500),
@@ -55,7 +66,8 @@ void _handleOnPlaneTap(List<ArCoreHitTestResult> hits) {
   }
 
   void _addSphere(ArCoreController controller) {
-    final material = ArCoreMaterial(color: Color.fromARGB(120, 66, 134, 244));
+    final material = ArCoreMaterial(
+        color: const Color.fromARGB(120, 66, 134, 244));
     final sphere = ArCoreSphere(
       materials: [material],
       radius: 0.1,
@@ -86,7 +98,7 @@ void _handleOnPlaneTap(List<ArCoreHitTestResult> hits) {
 
   void _addCube(ArCoreController controller) {
     final material = ArCoreMaterial(
-      color: Color.fromARGB(120, 66, 134, 244),
+      color: const Color.fromARGB(120, 66, 134, 244),
       metallic: 1.0,
     );
     final cube = ArCoreCube(
@@ -99,10 +111,5 @@ void _handleOnPlaneTap(List<ArCoreHitTestResult> hits) {
     );
     controller.addArCoreNode(node);
   }
-
-  @override
-  void dispose() {
-    arCoreController.dispose();
-    super.dispose();
-  }
 }
+
