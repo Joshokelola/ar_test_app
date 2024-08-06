@@ -1,7 +1,6 @@
+import 'package:ar_test/views/splash.dart';
 import 'package:flutter/material.dart';
 
-import 'ar_test_page.dart';
-import 'presentation/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const GameHome(),
+      home: const Splashscreen(),
     );
   }
 }
