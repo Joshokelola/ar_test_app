@@ -55,7 +55,8 @@ void _handleOnPlaneTap(List<ArCoreHitTestResult> hits) {
   }
 
   void _addSphere(ArCoreController controller) {
-    final material = ArCoreMaterial(color: Color.fromARGB(120, 66, 134, 244));
+    final material = ArCoreMaterial(
+        color: const Color.fromARGB(120, 66, 134, 244));
     final sphere = ArCoreSphere(
       materials: [material],
       radius: 0.1,
@@ -86,7 +87,7 @@ void _handleOnPlaneTap(List<ArCoreHitTestResult> hits) {
 
   void _addCube(ArCoreController controller) {
     final material = ArCoreMaterial(
-      color: Color.fromARGB(120, 66, 134, 244),
+      color: const Color.fromARGB(120, 66, 134, 244),
       metallic: 1.0,
     );
     final cube = ArCoreCube(
@@ -100,9 +101,9 @@ void _handleOnPlaneTap(List<ArCoreHitTestResult> hits) {
     controller.addArCoreNode(node);
   }
 
-  @override
-  void dispose() {
-    arCoreController.dispose();
-    super.dispose();
-  }
+  // @override
+ // void dispose() {
+    // arCoreController.dispose();
+  //  super.dispose();
+ // }
 }
