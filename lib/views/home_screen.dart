@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:ar_test/utils/constants.dart';
 import 'package:ar_test/views/profile.dart';
+import 'package:ar_test/views/test_page.dart';
 import 'package:flutter/material.dart';
 
 import '../ar_test_page.dart';
@@ -47,7 +48,7 @@ class GameHome extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: (){
-                            Navigator.pushReplacement(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => const ProfilePage()),
                             );
@@ -103,7 +104,7 @@ class GameHome extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GameOptionCard('Start Hunt', 'assets/treasure.png',
-                                const ArTestPage()),
+                                const LocationPage()),
                             GameOptionCard('View Map',
                                 'assets/adventure_icon.png', const ArenaSelect()),
                           ],
@@ -142,7 +143,7 @@ class GameOptionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => page),
         );
