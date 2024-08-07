@@ -85,9 +85,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pushReplacement(
+                          Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const WelcomeScreen(), // Replace with your page
+                              builder: (context) =>
+                                  const WelcomeScreen(), // Replace with your page
                             ),
                           );
                         },

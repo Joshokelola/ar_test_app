@@ -7,30 +7,6 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Welcome to HeritageHunt Game',
-          style: TextStyle(fontSize: 16, 
-          fontWeight: FontWeight.bold,
-          color: colorPrimary),
-          textAlign: TextAlign.center,
-        ),
-        actions: [
-          Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-            ),
-          ),
-        ],
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.green),
-        titleTextStyle: const TextStyle(color: Colors.green),
-        centerTitle: true,
-      ),
       endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -75,13 +51,6 @@ class WelcomeScreen extends StatelessWidget {
                 Navigator.pushNamed(context, '/credits');
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.logout_rounded),
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.pushNamed(context, '/logout');
-              },
-            ),
           ],
         ),
       ),
@@ -93,23 +62,57 @@ class WelcomeScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildButton(context, 'Start Hunt', '/startHunt'),
-                  const SizedBox(height: 20),
-                  _buildButton(context, 'Profile', '/profile'),
-                  const SizedBox(height: 20),
-                  _buildButton(context, 'Leaderboard', '/leaderboard'),
-                  const SizedBox(height: 20),
-                  _buildButton(context, 'Settings', '/settings'),
-                  const SizedBox(height: 20),
-                  _buildButton(context, 'About', '/about'),
-                ],
-              ),
+          SafeArea(
+            child: Column(
+              children: [ Stack(
+                  children: [
+                    const Center(
+                      child: Text(
+                        'Welcome to HeritageHunt Game',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: colorPrimary,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Builder(
+                        builder: (context) => IconButton(
+                          icon: const Icon(Icons.menu),
+                          color: Colors.green,
+                          onPressed: () {
+                            Scaffold.of(context).openEndDrawer();
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildButton(context, 'Start Hunt', '/startHunt'),
+                          const SizedBox(height: 20),
+                          _buildButton(context, 'Profile', '/profile'),
+                          const SizedBox(height: 20),
+                          _buildButton(context, 'Leaderboard', '/leaderboard'),
+                          const SizedBox(height: 20),
+                          _buildButton(context, 'Settings', '/settings'),
+                          const SizedBox(height: 20),
+                          _buildButton(context, 'About', '/about'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
