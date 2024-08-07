@@ -1,3 +1,4 @@
+import 'package:ar_test/utils/constants.dart';
 import 'package:ar_test/views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Heritage Hunt',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        colorSchemeSeed: Colors.white,
         useMaterial3: true,
       ),
       home: const Splashscreen(),
