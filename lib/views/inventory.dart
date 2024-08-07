@@ -6,10 +6,10 @@ class InventoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('Treasures Abounds'),
+        automaticallyImplyLeading: true,
+        title: const Text('Treasure Abounds'),
       ),
       body: SafeArea(
         child: GridView.builder(
