@@ -1,5 +1,6 @@
-import 'package:ar_test/utils/navbar.dart';
 import 'package:flutter/material.dart';
+
+import 'home_screen.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -7,6 +8,8 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -154,7 +157,7 @@ class ProfilePage extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const AppBottBar()),
+                          MaterialPageRoute(builder: (context) => const GameHome()),
                         );
                       },
                       child: 
