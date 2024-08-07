@@ -15,6 +15,7 @@ class _ArenaSelectState extends State<ArenaSelect> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        leading: const Icon(Icons.arrow_back),
         title: const Text(
           'Welcome to Game Arena',
 

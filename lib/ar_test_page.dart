@@ -1,4 +1,5 @@
 import 'package:ar_test/database.dart';
+import 'package:ar_test/views/home_screen.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,13 +35,22 @@ class ArTestPageState extends State<ArTestPage> {
               top: 50,
               left: 24,
               child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const GameHome()));                },
                 child: Container(
                   height: 48,
                   width: 48,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
                       border: Border.all(width: 1.5, color: Colors.white)),
-                  // child: Icon(Icons.back),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 32,
+                  ),
                 ),
               )),
           Positioned(
@@ -53,10 +63,11 @@ class ArTestPageState extends State<ArTestPage> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
                       border: Border.all(width: 1.5, color: Colors.white)),
-                  child: Center(
+                  child: const Center(
                       child: Icon(
                     Icons.emoji_objects,
-                    size: 40,
+                    color: Colors.white,
+                    size: 32,
                   )),
                 ),
               )),
@@ -72,8 +83,9 @@ class ArTestPageState extends State<ArTestPage> {
                       border: Border.all(width: 1.5, color: Colors.white)),
                   child: Center(
                       child: Icon(
-                    Icons.minimize,
-                    size: 40,
+                    Icons.cancel_outlined,
+                    color: Colors.white,
+                    size: 32,
                   )),
                 ),
               )),
@@ -90,7 +102,8 @@ class ArTestPageState extends State<ArTestPage> {
                   child: Center(
                       child: Icon(
                     Icons.add,
-                    size: 40,
+                    color: Colors.white,
+                    size: 32,
                   )),
                 ),
               ))
