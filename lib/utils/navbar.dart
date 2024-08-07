@@ -34,7 +34,7 @@ class _AppBottBarState extends State<AppBottBar> {
   final List<Widget> _pages = [
     const ArenaSelect(),
     const OnboardingScreen(), //dummy page
-    const ArTestPage(), //dummy duplicate page
+    const ProfilePage(), //dummy duplicate page
     const ProfilePage(),
   ];
 
