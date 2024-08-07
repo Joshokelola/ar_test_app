@@ -87,9 +87,9 @@ class ArTestPageState extends State<ArTestPage> with AutomaticKeepAliveClientMix
   @override
   bool get wantKeepAlive => true;
 
-  // @override
- // void dispose() {
-    // arCoreController.dispose();
-  //  super.dispose();
- // }
+  @override
+ void dispose() {
+    arCoreController.dispose();
+   super.dispose();
+ }
 }
