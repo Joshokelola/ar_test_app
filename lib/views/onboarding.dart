@@ -1,5 +1,6 @@
-import 'package:ar_test/utils/navbar.dart';
 import 'package:flutter/material.dart';
+
+import 'home_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -7,38 +8,24 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 24.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Image.asset(
-                  'assets/a1.png',
-                  height: 450,
-                ),
-                const SizedBox(height: 30),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Text(
-                    'Strategy',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black38,
-                      fontWeight: FontWeight.bold,
-                    ),
+                const SizedBox(height: 70),
+                Center(
+                  child: Image.asset(
+                    'assets/treasure_chest.png',
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 40),
                 const Text(
-                  'Clash of Clans',
+                  'Heritage Hunt',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -46,7 +33,7 @@ class OnboardingScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Let\'s play and enjoy the game and get an amazing experience!',
+                  'Let\'s hunt and discover Nigeria!',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 16,
@@ -60,7 +47,7 @@ class OnboardingScreen extends StatelessWidget {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const AppBottBar()
+                              builder: (context) => const GameHome()
                       )
                     );
                     },

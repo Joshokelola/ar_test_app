@@ -1,5 +1,6 @@
-import 'package:ar_test/utils/navbar.dart';
 import 'package:flutter/material.dart';
+
+import 'home_screen.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -154,7 +155,7 @@ class ProfilePage extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const AppBottBar()),
+                          MaterialPageRoute(builder: (context) => const GameHome()),
                         );
                       },
                       child: 
