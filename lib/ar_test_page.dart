@@ -16,25 +16,31 @@ class ArTestPageState extends State<ArTestPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
+      home: Scaffold(
           body: SafeArea(
-            child: Stack(
-                children: [
-            Container(
+        child: Stack(children: [
+          SizedBox(
             height: MediaQuery.sizeOf(context).height,
-            width: MediaQuery
-                .sizeOf(context)
-                .width,
+            width: MediaQuery.sizeOf(context).width,
             child: ArCoreView(
-            onArCoreViewCreated: _onArCoreViewCreated,
-            enableTapRecognizer: true,
+              onArCoreViewCreated: _onArCoreViewCreated,
+              enableTapRecognizer: true,
+            ),
           ),
-        ),
-
-        ]
-    ),)
-    )
-    ,
+          Positioned(
+              top: 50,
+              left: 24,
+              child: GestureDetector(
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(width: 1.5, color: Colors.white)),
+                ),
+              ))
+        ]),
+      )),
     );
   }
 
@@ -55,7 +61,7 @@ class ArTestPageState extends State<ArTestPage> {
 
   Future _addImage(ArCoreHitTestResult hit) async {
     final bytes =
-    (await rootBundle.load('assets/character.png')).buffer.asUint8List();
+        (await rootBundle.load('assets/character.png')).buffer.asUint8List();
 
     final earth = ArCoreNode(
       image: ArCoreImage(bytes: bytes, width: 500, height: 500),
@@ -67,8 +73,8 @@ class ArTestPageState extends State<ArTestPage> {
   }
 
   void _addSphere(ArCoreController controller) {
-    final material = ArCoreMaterial(
-        color: const Color.fromARGB(120, 66, 134, 244));
+    final material =
+        ArCoreMaterial(color: const Color.fromARGB(120, 66, 134, 244));
     final sphere = ArCoreSphere(
       materials: [material],
       radius: 0.1,
@@ -113,4 +119,3 @@ class ArTestPageState extends State<ArTestPage> {
     controller.addArCoreNode(node);
   }
 }
-
