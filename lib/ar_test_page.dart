@@ -40,6 +40,58 @@ class ArTestPageState extends State<ArTestPage> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
                       border: Border.all(width: 1.5, color: Colors.white)),
+                  // child: Icon(Icons.back),
+                ),
+              )),
+          Positioned(
+              bottom: 120,
+              right: 24,
+              child: GestureDetector(
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(width: 1.5, color: Colors.white)),
+                  child: Center(
+                      child: Icon(
+                    Icons.emoji_objects,
+                    size: 40,
+                  )),
+                ),
+              )),
+          Positioned(
+              bottom: 50,
+              right: 24,
+              child: GestureDetector(
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(width: 1.5, color: Colors.white)),
+                  child: Center(
+                      child: Icon(
+                    Icons.minimize,
+                    size: 40,
+                  )),
+                ),
+              )),
+          Positioned(
+              bottom: 50,
+              left: 24,
+              child: GestureDetector(
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(width: 1.5, color: Colors.white)),
+                  child: Center(
+                      child: Icon(
+                    Icons.add,
+                    size: 40,
+                  )),
                 ),
               ))
         ]),
@@ -58,7 +110,6 @@ class ArTestPageState extends State<ArTestPage> {
   }
 
   void _loadTreasures() {
-    // Define treasure locations and models here
     final treasures = huntTreasures;
     for (var treasure in treasures) {
       final node = ArCoreReferenceNode(
