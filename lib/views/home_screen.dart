@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 import '../ar_test_page.dart';
 import 'game_play.dart';
+import 'inventory.dart';
+import 'leaderboard.dart';
 
 class GameHome extends StatelessWidget {
   const GameHome({super.key});
@@ -33,7 +35,7 @@ class GameHome extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.white70, Colors.white],
+                  colors: [Colors.white54, Colors.white70],
                 ),
               ),
               child: Padding(
@@ -58,32 +60,40 @@ class GameHome extends StatelessWidget {
                                 AssetImage('assets/avatar.jpg',),
                           ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            color: colorPrimary,
-                          ),
-                          child: const Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: Colors.white,
-                                radius: 14,
-                                child: Icon(
-                                  Icons.star,
-                                  color: Colors.yellow,
-                                  size: 20,
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const LeaderboardPage()),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                              color: colorPrimary,
+                            ),
+                            child: const Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  radius: 14,
+                                  child: Icon(
+                                    Icons.star,
+                                    color: Colors.yellow,
+                                    size: 20,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                '12560',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
+                                SizedBox(width: 5),
+                                Text(
+                                  '12560',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -113,7 +123,7 @@ class GameHome extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GameOptionCard('Artefacts',
-                                'assets/Diamond lime.png', const ArTestPage()),
+                                'assets/Diamond lime.png', const InventoryPage()),
                             GameOptionCard('Quests',
                                 'assets/daily.png', const ArTestPage()),
                           ],
@@ -155,7 +165,7 @@ class GameOptionCard extends StatelessWidget {
           border: Border.all(color: greyBG),
           boxShadow: const [
             BoxShadow(
-                color: Colors.black26, offset: Offset(0.7, 0.5), blurRadius: 2)
+                color: Colors.black26, offset: Offset(0.7, 0.5), blurRadius: 1)
           ],
           color: Colors.white,
         ),
