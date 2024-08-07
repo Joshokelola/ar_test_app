@@ -9,7 +9,6 @@ class InventoryPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: const Icon(Icons.arrow_back),
         title: const Text('Treasures Abounds'),
       ),
       body: SafeArea(

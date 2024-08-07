@@ -9,8 +9,8 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back),
-      ),
+        backgroundColor: Colors.white,
+        title: const Text('Profile'),      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
