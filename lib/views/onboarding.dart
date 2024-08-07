@@ -1,6 +1,6 @@
+import 'package:ar_test/views/auth/signin2.dart';
 import 'package:flutter/material.dart';
 
-import 'home_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -15,7 +15,7 @@ class OnboardingScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 24.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment:  CrossAxisAlignment.center,
               children: <Widget>[
                 const SizedBox(height: 70),
                 Center(
@@ -47,7 +47,7 @@ class OnboardingScreen extends StatelessWidget {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const GameHome()
+                              builder: (context) => const SignUpPage()
                       )
                     );
                     },
