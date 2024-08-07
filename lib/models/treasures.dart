@@ -10,6 +10,8 @@ class Treasure {
   final String modelUrl; // URL to the 3D model
   final String historicalSignificance;
   final String rarity;
+  double? latitude; // Latitude of the treasure
+  double? longitude; // Longitude of the treasure
   final Vector3 position; // For AR placement
   final String clue; // Clue for finding the treasure
 
@@ -23,6 +25,8 @@ class Treasure {
     required this.modelUrl,
     required this.historicalSignificance,
     required this.rarity,
+    this.latitude,
+    this.longitude,
     required this.position,
     required this.clue,
   });

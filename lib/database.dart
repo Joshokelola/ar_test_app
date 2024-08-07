@@ -12,7 +12,7 @@ final List<Treasure> huntTreasures = [
       modelUrl: "assets/iroke_ifa_divination_tapper.glb",
       historicalSignificance:
           "Before a babaláwo, or diviner, began the process of divination or Ifa, a tapper was used on the divination tray to call Orunmila, the god of wisdom responsible for divination. Usually made from wood or ivory, the tapper, called iroke ifa, was also used to add rhythm to the babaláwo's chants. The form of the tapper helped invoke Orunmila through the stance of the woman carved in the middle, whose kneeling position, ikunle, was a gesture of respect.",
-      position: Vector3(0, 0, -3.0),
+      position: Vector3(7.3775, 3.9470, 0.0),
       clue:
           "Seek out the ceremonial object that bridges the earthly and the spiritual in Yoruba culture.",
       rarity: "Very Rare"),

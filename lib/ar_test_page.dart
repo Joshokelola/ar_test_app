@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
+import 'models/treasures.dart';
+
 class ArTestPage extends StatefulWidget {
   const ArTestPage({super.key});
 
@@ -15,8 +17,7 @@ class ArTestPage extends StatefulWidget {
   ArTestPageState createState() => ArTestPageState();
 }
 
-class ArTestPageState extends State<ArTestPage>
-    with AutomaticKeepAliveClientMixin {
+class ArTestPageState extends State<ArTestPage> {
   late StreamSubscription<Position> _positionStream;
   Position? _currentPosition;
   late ArCoreController arCoreController;
@@ -92,19 +93,97 @@ class ArTestPageState extends State<ArTestPage>
       // });
       // debugPrint(isTreasureNear.toString());
     }
-    super.build(context);
+ //   super.build(context);
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Distance - $withinRad'),
-        ),
-        body: ArCoreView(
-          onArCoreViewCreated: _onArCoreViewCreated,
-          enableTapRecognizer: true,
-          enableUpdateListener: true,
-          //  debug: true,
-        ),
-      ),
+          body: SafeArea(
+        child: Stack(children: [
+          SizedBox(
+            height: MediaQuery.sizeOf(context).height,
+            width: MediaQuery.sizeOf(context).width,
+            child: ArCoreView(
+              onArCoreViewCreated: _onArCoreViewCreated,
+              enableTapRecognizer: true,
+            ),
+          ),
+          Positioned(
+              top: 50,
+              left: 24,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const GameHome()));                },
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(width: 1.5, color: Colors.white)),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                ),
+              )),
+          Positioned(
+              bottom: 120,
+              right: 24,
+              child: GestureDetector(
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(width: 1.5, color: Colors.white)),
+                  child: const Center(
+                      child: Icon(
+                    Icons.emoji_objects,
+                    color: Colors.white,
+                    size: 32,
+                  )),
+                ),
+              )),
+          Positioned(
+              bottom: 50,
+              right: 24,
+              child: GestureDetector(
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(width: 1.5, color: Colors.white)),
+                  child: Center(
+                      child: Icon(
+                    Icons.cancel_outlined,
+                    color: Colors.white,
+                    size: 32,
+                  )),
+                ),
+              )),
+          Positioned(
+              bottom: 50,
+              left: 24,
+              child: GestureDetector(
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(width: 1.5, color: Colors.white)),
+                  child: Center(
+                      child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 32,
+                  )),
+                ),
+              ))
+        ]),
+      )),
     );
   }
 
