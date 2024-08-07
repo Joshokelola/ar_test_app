@@ -1,4 +1,3 @@
-import 'package:ar_test/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class LeaderboardPage extends StatelessWidget {

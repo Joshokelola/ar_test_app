@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
-import 'models/treasures.dart';
 
 class ArTestPage extends StatefulWidget {
   const ArTestPage({super.key});
@@ -134,7 +133,7 @@ class ArTestPageState extends State<ArTestPage> {
 
   void _addCube(ArCoreController controller) {
     final material = ArCoreMaterial(
-      color: Color.fromARGB(120, 66, 134, 244),
+      color: const Color.fromARGB(120, 66, 134, 244),
       metallic: 1.0,
     );
     final cube = ArCoreCube(

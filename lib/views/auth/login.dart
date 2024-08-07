@@ -37,10 +37,10 @@ class LoginPage extends StatelessWidget {
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Email',
-                    labelStyle: TextStyle(color: Colors.black38),
+                    labelStyle: const TextStyle(color: Colors.black38),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: greyBG,
                         )),
                     focusedBorder: OutlineInputBorder(
@@ -54,15 +54,15 @@ class LoginPage extends StatelessWidget {
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    labelStyle: TextStyle(color: Colors.black38),
+                    labelStyle: const TextStyle(color: Colors.black38),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: greyBG,
                         )),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: colorPrimary,
                         )),
                   ),

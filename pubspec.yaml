@@ -20,6 +20,8 @@ dependencies:
   arcore_flutter_plugin: ^0.1.0
   vector_math: ^2.1.4
   fvm: ^3.1.7
+  shared_preferences: ^2.3.1
+  flutter_riverpod: ^2.5.1
 
 dev_dependencies:
   flutter_test:

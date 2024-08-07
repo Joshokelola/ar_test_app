@@ -107,25 +107,25 @@ class GameHome extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    Column(
+                    const Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GameOptionCard('Start Hunt', 'assets/treasure.png',
-                                const ArTestPage()),
+                                ArTestPage()),
                             GameOptionCard('View Map',
-                                'assets/adventure_icon.png', const ArenaSelect()),
+                                'assets/adventure_icon.png', ArenaSelect()),
                           ],
                         ),
-                        const SizedBox(height: 24),
+                        SizedBox(height: 24),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GameOptionCard('Artefacts',
-                                'assets/Diamond lime.png', const InventoryPage()),
+                                'assets/Diamond lime.png', InventoryPage()),
                             GameOptionCard('Quests',
-                                'assets/daily.png', const ArTestPage()),
+                                'assets/daily.png', ArTestPage()),
                           ],
                         ),
                       ],
@@ -146,7 +146,7 @@ class GameOptionCard extends StatelessWidget {
   final String icon;
   final Widget page;
 
-  GameOptionCard(this.title, this.icon, this.page);
+  const GameOptionCard(this.title, this.icon, this.page, {super.key});
 
   @override
   Widget build(BuildContext context) {

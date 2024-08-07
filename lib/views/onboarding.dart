@@ -3,7 +3,6 @@ import 'package:ar_test/views/auth/login.dart';
 import 'package:ar_test/views/auth/signup.dart';
 import 'package:flutter/material.dart';
 
-import 'home_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
