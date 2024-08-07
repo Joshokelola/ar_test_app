@@ -12,9 +12,12 @@ class _ArenaSelectState extends State<ArenaSelect> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text(
           'Welcome to Game Arena',
+
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ),
         centerTitle: true,
