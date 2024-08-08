@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:ar_test/views/onboarding.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/constants.dart';
+import 'auth/auth_option_screen.dart';
+
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
@@ -35,7 +35,7 @@ class _SplashscreenState extends State<Splashscreen> {
       body: SafeArea(
         child: Container(
           color: Colors.white,
-          child: Column(
+          child: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image(

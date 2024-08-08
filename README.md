@@ -1,4 +1,4 @@
-# AR Treasure Hunt Game
+# Heritage Quest - AR Treasure Hunt Game
 
 Welcome to the AR Treasure Hunt game! This application uses Augmented Reality (AR) to create an exciting treasure hunt experience.
 
@@ -37,7 +37,7 @@ AR Treasure Hunt is a mobile application that uses ARCore to provide a treasure 
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/yourusername/ar_treasure_hunt.git
+   git clone https://github.com/Joshokelola/heritage_hunt.git
    ```
 
 2. **Navigate to the Project Directory:**
@@ -105,9 +105,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any questions or issues, please contact:
 
-- **Email:** your.email@example.com
-- **GitHub:** [yourusername](https://github.com/yourusername)
+- **GitHub:** [yourusername](https://github.com/Joshokelola)
 
----
-
-Feel free to adjust the sections according to your project specifics. This template should provide a solid foundation for guiding users and developers interacting with your AR treasure hunt game.
