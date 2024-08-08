@@ -1,4 +1,4 @@
-import 'package:ar_test/models/treasures.dart';
+import 'package:heritage_quest/models/treasures.dart';
 import 'package:vector_math/vector_math_64.dart';
 
 final List<Treasure> huntTreasures = [
@@ -384,7 +384,6 @@ final List<Treasure> huntTreasures = [
 
 
 // https://github.com/Joshokelola/heritage_hunt/raw/main/assets/treasure%20models/ljas_-_audio_recording_flight_case.glb
-
 
 
 

@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:ar_test/database.dart';
-import 'package:ar_test/models/treasures.dart';
+import 'package:heritage_quest/database.dart';
+import 'package:heritage_quest/models/treasures.dart';
 
 class HideTreasure {
   // Generates a random point within a circle of a given radius around a center

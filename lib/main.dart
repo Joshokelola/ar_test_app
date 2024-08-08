@@ -1,19 +1,29 @@
-import 'package:ar_test/utils/constants.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:ar_test/views/splash.dart';
+import 'package:heritage_quest/utils/navbar.dart';
+import 'package:heritage_quest/views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'views/credits.dart';
+import 'views/onboarding.dart';
+import 'views/profile.dart';
+import 'views/settings.dart';
+import 'views/tutorial/leaderboard.dart';
+import 'views/tutorial/tutorial.dart';
+import 'views/welcome.dart';
 
-
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((_) {
-    runApp(MyApp());
-  });
+  ]);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -28,8 +38,18 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: Colors.white,
         useMaterial3: true,
       ),
-      home: const Splashscreen(),
+      initialRoute: 'splashscreen',
+      routes: {
+        'splashscreen': (context) => const Splashscreen(),
+        'onboarding': (context) => const OnboardingScreen(),
+        'bnav': (context) => const AppBottBar(),
+        '/welcome': (context) => const WelcomeScreen(),
+        '/startHunt': (context) => const TutorialScreen(),
+        '/profile': (context) => const ProfilePage(),
+        '/leaderboard': (context) => const Leaderboard(),
+        '/settings': (context) => const SettingsPage(),
+        '/credits': (context) => const CreditsPage(),
+      },
     );
   }
 }
-

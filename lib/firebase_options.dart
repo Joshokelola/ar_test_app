@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,15 +25,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -49,20 +40,52 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBStjBSdvIaw3BJYrbD85zq_V4rKNvWIOU',
-    appId: '1:839238756417:android:2fd9e8f78762bca202fec0',
-    messagingSenderId: '839238756417',
-    projectId: 'heritage-quest-app',
-    storageBucket: 'heritage-quest-app.appspot.com',
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDzgCTTEqhTw5Lruro5iruQWgNEnQQ6gAA',
+    appId: '1:15817954716:web:64d7a85053eb5b95c8a459',
+    messagingSenderId: '15817954716',
+    projectId: 'heritage-quest',
+    authDomain: 'heritage-quest.firebaseapp.com',
+    storageBucket: 'heritage-quest.appspot.com',
+    measurementId: 'G-6JSV16GJ9N',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyByc3Vg6GJGtxRMBYscT0lLJw3A7nllza8',
+    appId: '1:15817954716:ios:871493b9091780f5c8a459',
+    messagingSenderId: '15817954716',
+    projectId: 'heritage-quest',
+    storageBucket: 'heritage-quest.appspot.com',
+    iosClientId: '15817954716-hnpelubqkm8ihboek465vchh7ld2o1js.apps.googleusercontent.com',
+    iosBundleId: 'com.example.arTest',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDzgCTTEqhTw5Lruro5iruQWgNEnQQ6gAA',
+    appId: '1:15817954716:web:bf1f06bfc2cf069fc8a459',
+    messagingSenderId: '15817954716',
+    projectId: 'heritage-quest',
+    authDomain: 'heritage-quest.firebaseapp.com',
+    storageBucket: 'heritage-quest.appspot.com',
+    measurementId: 'G-VK6VXYNYCG',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBFF1u4XjPKIYJD-QfQ9sOSb3H13vtuHXo',
-    appId: '1:839238756417:ios:95ff3c438c0f122002fec0',
-    messagingSenderId: '839238756417',
-    projectId: 'heritage-quest-app',
-    storageBucket: 'heritage-quest-app.appspot.com',
+    apiKey: 'AIzaSyByc3Vg6GJGtxRMBYscT0lLJw3A7nllza8',
+    appId: '1:15817954716:ios:871493b9091780f5c8a459',
+    messagingSenderId: '15817954716',
+    projectId: 'heritage-quest',
+    storageBucket: 'heritage-quest.appspot.com',
+    iosClientId: '15817954716-hnpelubqkm8ihboek465vchh7ld2o1js.apps.googleusercontent.com',
     iosBundleId: 'com.example.arTest',
   );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyDGnWBPcTEiqH2OqsE00B0OVLAd6uMjZLM',
+    appId: '1:15817954716:android:94986a18515b5a6ec8a459',
+    messagingSenderId: '15817954716',
+    projectId: 'heritage-quest',
+    storageBucket: 'heritage-quest.appspot.com',
+  );
+
 }

@@ -1,4 +1,4 @@
-import 'package:ar_test/models/treasures.dart';
+import 'package:heritage_quest/models/treasures.dart';
 
 import '../database.dart';
 
