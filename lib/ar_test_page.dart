@@ -1,11 +1,12 @@
+import 'dart:async';
+import 'dart:math';
 import 'package:ar_test/database.dart';
-import 'package:ar_test/views/home_screen.dart';
+import 'package:ar_test/models/treasures.dart';
+import 'package:ar_test/services/treasure_location.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
-
-import 'models/treasures.dart';
 
 class ArTestPage extends StatefulWidget {
   const ArTestPage({super.key});
@@ -14,201 +15,134 @@ class ArTestPage extends StatefulWidget {
   ArTestPageState createState() => ArTestPageState();
 }
 
-class ArTestPageState extends State<ArTestPage> {
-  late ArCoreController arCoreController;
+class ArTestPageState extends State<ArTestPage> with AutomaticKeepAliveClientMixin {
+  late StreamSubscription<Position> _positionStream;
+  Position? _currentPosition;
+  late ArCoreController _arCoreController;
+
+  final HideTreasure _hideTreasure = HideTreasure();
+  List<Treasure> huntTreasures = []; // Initialize with your treasures
+  final double _renderRadius = 5.0; // Radius within which to render treasures
+  bool _isClose = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _startLocationUpdates();
+  }
+
+  @override
+  void dispose() {
+    _positionStream.cancel();
+    _arCoreController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _startLocationUpdates() async {
+    var permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Location permissions are permanently denied.');
+    }
+
+    const locationSettings = LocationSettings(
+      accuracy: LocationAccuracy.bestForNavigation,
+      distanceFilter: 0,
+    );
+
+    try {
+      _positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).listen(
+            (Position position) {
+          setState(() {
+            _currentPosition = position;
+            if (_currentPosition != null) {
+              _updateTreasurePositions();
+              _renderTreasures();
+            }
+          });
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void _updateTreasurePositions() {
+    if (_currentPosition != null) {
+      _hideTreasure.placeArtifacts(
+        _currentPosition!.latitude,
+        _currentPosition!.longitude,
+      );
+    }
+  }
+
+  void _renderTreasures() {
+    if (_arCoreController != null && _currentPosition != null) {
+      for (var treasure in huntTreasures) {
+        // Check if latitude and longitude are not null
+        if (treasure.latitude != null && treasure.longitude != null) {
+          double distance = Geolocator.distanceBetween(
+            _currentPosition!.latitude,
+            _currentPosition!.longitude,
+            treasure.latitude!,
+            treasure.longitude!,
+          );
+
+          if (distance <= _renderRadius) {
+            _addTreasureNode(treasure);
+          } else if (distance > _renderRadius && distance <= 8) {
+            _isClose = true;
+          }
+        }
+      }
+    }
+  }
+
+
+  Future<void> _addTreasureNode(Treasure treasure) async {
+    final node = ArCoreReferenceNode(
+      name: treasure.name,
+      objectUrl: treasure.modelUrl,
+      position: treasure.position,
+      scale: vector.Vector3(1, 1, 1),
+    );
+    await _arCoreController.addArCoreNode(node);
+  }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return MaterialApp(
       home: Scaffold(
-          body: SafeArea(
-        child: Stack(children: [
-          SizedBox(
-            height: MediaQuery.sizeOf(context).height,
-            width: MediaQuery.sizeOf(context).width,
-            child: ArCoreView(
-              onArCoreViewCreated: _onArCoreViewCreated,
-              enableTapRecognizer: true,
-            ),
-          ),
-          Positioned(
-              top: 50,
-              left: 24,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const GameHome()));                },
-                child: Container(
-                  height: 48,
-                  width: 48,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      border: Border.all(width: 1.5, color: Colors.white)),
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                    size: 32,
-                  ),
-                ),
-              )),
-          Positioned(
-              bottom: 120,
-              right: 24,
-              child: GestureDetector(
-                child: Container(
-                  height: 48,
-                  width: 48,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      border: Border.all(width: 1.5, color: Colors.white)),
-                  child: const Center(
-                      child: Icon(
-                    Icons.emoji_objects,
-                    color: Colors.white,
-                    size: 32,
-                  )),
-                ),
-              )),
-          Positioned(
-              bottom: 50,
-              right: 24,
-              child: GestureDetector(
-                child: Container(
-                  height: 48,
-                  width: 48,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      border: Border.all(width: 1.5, color: Colors.white)),
-                  child: Center(
-                      child: Icon(
-                    Icons.cancel_outlined,
-                    color: Colors.white,
-                    size: 32,
-                  )),
-                ),
-              )),
-          Positioned(
-              bottom: 50,
-              left: 24,
-              child: GestureDetector(
-                child: Container(
-                  height: 48,
-                  width: 48,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      border: Border.all(width: 1.5, color: Colors.white)),
-                  child: Center(
-                      child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 32,
-                  )),
-                ),
-              ))
-        ]),
-      )),
+        appBar: AppBar(
+          title: Text('AR Treasure Hunt'),
+        ),
+        body: ArCoreView(
+          onArCoreViewCreated: _onArCoreViewCreated,
+          enableTapRecognizer: true,
+          enableUpdateListener: true,
+        ),
+      ),
     );
   }
 
   void _onArCoreViewCreated(ArCoreController controller) {
-    arCoreController = controller;
-    arCoreController.onPlaneTap = _handleOnPlaneTap;
-    arCoreController.onNodeTap = _handleNodeTap;
-    _addSphere(arCoreController);
-    // _addCylindre(arCoreController);
-    // _addCube(arCoreController);
-    _loadTreasures();
+    _arCoreController = controller;
+    _arCoreController.onNodeTap = (name) => _onNodeTap(name);
+    _updateTreasurePositions();
+    _renderTreasures();
   }
 
-  void _loadTreasures() {
-    final treasures = huntTreasures;
-    for (var treasure in treasures) {
-      final node = ArCoreReferenceNode(
-        name: treasure.name,
-        objectUrl: treasure.modelUrl,
-        position: treasure.position,
-        scale: vector.Vector3(1, 1, 1),
-      );
-      arCoreController.addArCoreNode(node);
-    }
-  }
-
-  void _handleNodeTap(String nodeName) {
-    if (nodeName.isNotEmpty) {
-      final tappedNode = nodeName;
-      // Handle the treasure interaction, e.g., mark as collected
-      print('Tapped on $tappedNode');
-      // Update game state and remove node
-      arCoreController.removeNode(nodeName: tappedNode);
-    }
-  }
-
-  void _handleOnPlaneTap(List<ArCoreHitTestResult> hits) {
-    if (hits.isNotEmpty) {
-      final hit = hits.first;
-      _addImage(hit);
-    }
-  }
-
-  Future _addImage(ArCoreHitTestResult hit) async {
-    final bytes =
-        (await rootBundle.load('assets/character.png')).buffer.asUint8List();
-
-    final earth = ArCoreNode(
-      image: ArCoreImage(bytes: bytes, width: 500, height: 500),
-      position: hit.pose.translation + vector.Vector3(0.0, 0.0, 0.0),
-      rotation: hit.pose.rotation + vector.Vector4(0.0, 0.0, 0.0, 0.0),
+  void _onNodeTap(String name) {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(content: Text('You found a treasure!')),
     );
-
-    arCoreController.addArCoreNode(earth);
   }
 
-  void _addSphere(ArCoreController controller) {
-    final material =
-        ArCoreMaterial(color: const Color.fromARGB(120, 66, 134, 244));
-    final sphere = ArCoreSphere(
-      materials: [material],
-      radius: 0.1,
-    );
-    final node = ArCoreNode(
-      shape: sphere,
-      position: vector.Vector3(0, 0, -1.5),
-    );
-    controller.addArCoreNode(node);
-  }
-
-// void _addCylindre(ArCoreController controller) {
-//   final material = ArCoreMaterial(
-//     color: Colors.red,
-//     reflectance: 1.0,
-//   );
-//   final cylindre = ArCoreCylinder(
-//     materials: [material],
-//     radius: 0.5,
-//     height: 0.3,
-//   );
-//   final node = ArCoreNode(
-//     shape: cylindre,
-//     position: vector.Vector3(0.0, -0.5, -2.0),
-//   );
-//   controller.addArCoreNode(node);
-// }
-//
-// void _addCube(ArCoreController controller) {
-//   final material = ArCoreMaterial(
-//     color: const Color.fromARGB(120, 66, 134, 244),
-//     metallic: 1.0,
-//   );
-//   final cube = ArCoreCube(
-//     materials: [material],
-//     size: vector.Vector3(0.5, 0.5, 0.5),
-//   );
-//   final node = ArCoreNode(
-//     shape: cube,
-//     position: vector.Vector3(-0.5, 0.5, -3.5),
-//   );
-//   controller.addArCoreNode(node);
-// }
+  @override
+  bool get wantKeepAlive => true;
 }
