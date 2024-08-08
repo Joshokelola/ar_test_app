@@ -6,10 +6,39 @@ import 'dart:math' as math;
 import 'package:vector_math/vector_math_64.dart';
 
 class LocationService {
+  // Request location permissions if not already granted
+  Future<bool> requestPermission() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      // Request permission
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions denied, can't proceed
+        print('Location permissions are denied');
+        return false;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions denied forever, can't proceed
+      print('Location permissions are denied forever');
+      return false;
+    }
+
+    // Permissions are granted
+    return true;
+  }
+
+  // Check if location permissions are granted
+  Future<bool> hasPermission() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    return permission == LocationPermission.whileInUse || permission == LocationPermission.always;
+  }
+
   Stream<Position> getUserLocationUpdates() {
     const LocationSettings locationSettings = LocationSettings(
       accuracy: LocationAccuracy.bestForNavigation,
-      distanceFilter: 100,
+      distanceFilter: 10,
     );
     return Geolocator.getPositionStream(locationSettings: locationSettings);
   }
@@ -28,8 +57,21 @@ class LocationService {
 
     return earthRadius * c;
   }
-  bool isWithinRadius(double lat1, double lon1, double lat2, double lon2, double radius) {
-  double distance = haversineDistance(lat1, lon1, lat2, lon2);
-  return distance <= radius;
-}
+
+  bool isWithinRadius(
+      double lat1, double lon1, double lat2, double lon2, double radius) {
+    double distance = haversineDistance(lat1, lon1, lat2, lon2);
+    return distance <= radius;
+  }
+
+  Future<Position> getCurrentPosition() async {
+    try {
+      return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+    } catch (e) {
+      print('Error fetching current position: $e');
+      rethrow;
+    }
+  }
 }

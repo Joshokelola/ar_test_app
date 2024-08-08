@@ -8,10 +8,10 @@ final sharedPreferencesProvider = FutureProvider<SharedPreferences>((ref) async 
   return prefs;
 });
 
-final sharedPreferencesRepositoryProvider = Provider<SharedPreferencesRepository>((ref) {
+final sharedPreferencesRepositoryProvider = Provider<GameData>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider).value;
   if (prefs == null) {
     throw UnimplementedError();
   }
-  return SharedPreferencesRepository(prefs);
+  return GameData(prefs);
 });

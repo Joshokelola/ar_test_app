@@ -3,9 +3,11 @@ import 'dart:math';
 import 'package:ar_test/database.dart';
 import 'package:ar_test/models/treasures.dart';
 import 'package:ar_test/services/treasure_location.dart';
+import 'package:ar_test/shared_preferences.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
 class ArTestPage extends StatefulWidget {
@@ -15,13 +17,21 @@ class ArTestPage extends StatefulWidget {
   ArTestPageState createState() => ArTestPageState();
 }
 
-class ArTestPageState extends State<ArTestPage> with AutomaticKeepAliveClientMixin {
+class ArTestPageState extends State<ArTestPage>
+    with AutomaticKeepAliveClientMixin {
   late StreamSubscription<Position> _positionStream;
   Position? _currentPosition;
+  late GameData _gameData;
   late ArCoreController _arCoreController;
+  List<Treasure> gameTreasures = [];
 
-  final HideTreasure _hideTreasure = HideTreasure();
-  List<Treasure> huntTreasures = []; // Initialize with your treasures
+  Future<void> _initializeGameData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    _gameData = GameData(prefs);
+    List<Treasure> gameTreasures =
+        await _gameData.getTreasureList(); // Initialize with your treasures
+  }
+
   final double _renderRadius = 5.0; // Radius within which to render treasures
   bool _isClose = false;
 
@@ -29,6 +39,7 @@ class ArTestPageState extends State<ArTestPage> with AutomaticKeepAliveClientMix
   void initState() {
     super.initState();
     _startLocationUpdates();
+    _initializeGameData();
   }
 
   @override
@@ -54,12 +65,13 @@ class ArTestPageState extends State<ArTestPage> with AutomaticKeepAliveClientMix
     );
 
     try {
-      _positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).listen(
-            (Position position) {
+      _positionStream =
+          Geolocator.getPositionStream(locationSettings: locationSettings)
+              .listen(
+        (Position position) {
           setState(() {
             _currentPosition = position;
             if (_currentPosition != null) {
-              _updateTreasurePositions();
               _renderTreasures();
             }
           });
@@ -70,18 +82,9 @@ class ArTestPageState extends State<ArTestPage> with AutomaticKeepAliveClientMix
     }
   }
 
-  void _updateTreasurePositions() {
-    if (_currentPosition != null) {
-      _hideTreasure.placeArtifacts(
-        _currentPosition!.latitude,
-        _currentPosition!.longitude,
-      );
-    }
-  }
-
   void _renderTreasures() {
     if (_arCoreController != null && _currentPosition != null) {
-      for (var treasure in huntTreasures) {
+      for (var treasure in gameTreasures) {
         // Check if latitude and longitude are not null
         if (treasure.latitude != null && treasure.longitude != null) {
           double distance = Geolocator.distanceBetween(
@@ -100,7 +103,6 @@ class ArTestPageState extends State<ArTestPage> with AutomaticKeepAliveClientMix
       }
     }
   }
-
 
   Future<void> _addTreasureNode(Treasure treasure) async {
     final node = ArCoreReferenceNode(
@@ -132,14 +134,14 @@ class ArTestPageState extends State<ArTestPage> with AutomaticKeepAliveClientMix
   void _onArCoreViewCreated(ArCoreController controller) {
     _arCoreController = controller;
     _arCoreController.onNodeTap = (name) => _onNodeTap(name);
-    _updateTreasurePositions();
     _renderTreasures();
   }
 
   void _onNodeTap(String name) {
     showDialog<void>(
       context: context,
-      builder: (BuildContext context) => AlertDialog(content: Text('You found a treasure!')),
+      builder: (BuildContext context) =>
+          AlertDialog(content: Text('You found a treasure!')),
     );
   }
 
