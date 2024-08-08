@@ -105,9 +105,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any questions or issues, please contact:
 
-- **Email:** your.email@example.com
 - **GitHub:** [yourusername](https://github.com/Joshokelola)
 
----
-
-Feel free to adjust the sections according to your project specifics. This template should provide a solid foundation for guiding users and developers interacting with your AR treasure hunt game.
