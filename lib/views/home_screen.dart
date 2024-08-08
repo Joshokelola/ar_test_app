@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:ar_test/utils/constants.dart';
 import 'package:ar_test/views/profile.dart';
+import 'package:ar_test/views/searching_page.dart';
 import 'package:ar_test/views/test_page.dart';
 import 'package:flutter/material.dart';
 
@@ -126,7 +127,7 @@ class GameHome extends StatelessWidget {
                             GameOptionCard('Artefacts',
                                 'assets/Diamond lime.png', const InventoryPage()),
                             GameOptionCard('Quests',
-                                'assets/daily.png', const ArTestPage()),
+                                'assets/daily.png', const SearchingForTreasurePage()),
                           ],
                         ),
                       ],
