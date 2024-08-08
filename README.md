@@ -1,6 +1,6 @@
-# ar_test
+# Heritage Quest
 
-A new Flutter project.
+An AR game built with flutter.
 
 ## Getting Started
 
