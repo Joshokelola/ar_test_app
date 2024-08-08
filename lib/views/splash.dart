@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ar_test/views/onboarding.dart';
+import 'package:heritage_quest/views/onboarding.dart';
 import 'package:flutter/material.dart';
 
 

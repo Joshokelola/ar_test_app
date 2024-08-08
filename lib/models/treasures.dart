@@ -1,3 +1,5 @@
+import 'package:vector_math/vector_math_64.dart';
+
 class Treasure {
   final String id;
   final String name;
@@ -8,8 +10,9 @@ class Treasure {
   final String modelUrl; // URL to the 3D model
   final String historicalSignificance;
   final String rarity;
-  final double latitude; // For AR placement
-  final double longitude; // For AR placement
+  double? latitude; // Latitude of the treasure
+  double? longitude; // Longitude of the treasure
+  final Vector3 position; // For AR placement
   final String clue; // Clue for finding the treasure
 
   Treasure({
@@ -22,8 +25,9 @@ class Treasure {
     required this.modelUrl,
     required this.historicalSignificance,
     required this.rarity,
-    required this.latitude,
-    required this.longitude,
+    this.latitude,
+    this.longitude,
+    required this.position,
     required this.clue,
   });
 }

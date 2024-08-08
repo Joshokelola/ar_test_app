@@ -1,4 +1,6 @@
-import 'package:ar_test/views/auth/signin2.dart';
+import 'package:heritage_quest/utils/constants.dart';
+import 'package:heritage_quest/views/auth/login.dart';
+import 'package:heritage_quest/views/auth/signup.dart';
 import 'package:flutter/material.dart';
 
 
@@ -41,29 +43,57 @@ class OnboardingScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUpPage()
-                      )
-                    );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green[700],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                Column(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width * 0.75,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignupPage()));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: colorPrimary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 80, vertical: 10),
+                        ),
+                        child: const Text(
+                          'Sign Up',
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 80, vertical: 10),
                     ),
-                    child: const Text(
-                      'Play Now',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width * 0.75,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                        },
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              side: const BorderSide(
+                                  color: colorPrimary, width: 1)),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 80, vertical: 10),
+                        ),
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(fontSize: 18, color: colorPrimary),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),

@@ -1,5 +1,6 @@
 import 'dart:ui'; // For BackdropFilter
-import 'package:ar_test/views/auth/signup.dart';
+import 'package:heritage_quest/views/auth/signin2.dart';
+import 'package:heritage_quest/views/auth/signup.dart';
 import 'package:flutter/material.dart';
 
 import '../welcome.dart';

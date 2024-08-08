@@ -1,6 +1,6 @@
-import 'package:ar_test/ar_test_page.dart';
-import 'package:ar_test/utils/constants.dart';
-import 'package:ar_test/views/game_play.dart';
+import 'package:heritage_quest/ar_test_page.dart';
+import 'package:heritage_quest/utils/constants.dart';
+import 'package:heritage_quest/views/game_play.dart';
 import 'package:flutter/material.dart';
 
 import '../views/onboarding.dart';

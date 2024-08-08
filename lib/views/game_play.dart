@@ -1,4 +1,4 @@
-import 'package:ar_test/ar_test_page.dart';
+import 'package:heritage_quest/ar_test_page.dart';
 import 'package:flutter/material.dart';
 
 class ArenaSelect extends StatefulWidget {
@@ -17,7 +17,6 @@ class _ArenaSelectState extends State<ArenaSelect> {
         backgroundColor: Colors.white,
         title: const Text(
           'Welcome to Game Arena',
-
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ),
         centerTitle: true,

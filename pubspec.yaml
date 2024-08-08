@@ -1,4 +1,4 @@
-name: ar_test
+name: heritage_quest
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -20,6 +20,8 @@ dependencies:
   arcore_flutter_plugin: ^0.1.0
   vector_math: ^2.1.4
   geolocator: ^13.0.1
+  shared_preferences: ^2.3.1
+  flutter_riverpod: ^2.5.1
   firebase_core: ^2.24.2
   firebase_auth: ^4.16.0
 

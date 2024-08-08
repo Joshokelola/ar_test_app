@@ -1,5 +1,5 @@
-import 'package:ar_test/utils/navbar.dart';
-import 'package:ar_test/views/splash.dart';
+import 'package:heritage_quest/utils/navbar.dart';
+import 'package:heritage_quest/views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
       title: 'Heritage Hunt',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        colorSchemeSeed: Colors.white,
         useMaterial3: true,
       ),
       initialRoute: 'splashscreen',

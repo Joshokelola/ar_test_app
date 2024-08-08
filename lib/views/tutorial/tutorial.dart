@@ -1,4 +1,4 @@
-import 'package:ar_test/views/home_screen.dart';
+import 'package:heritage_quest/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../../models/tutorial.dart';
 

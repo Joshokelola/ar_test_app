@@ -8,6 +8,9 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text('Profile'),      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -15,13 +18,6 @@ class ProfilePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(Icons.arrow_back),
-                    Icon(Icons.menu),
-                  ],
-                ),
                 const SizedBox(height: 20),
                 Center(
                   child: Column(

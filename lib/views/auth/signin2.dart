@@ -1,6 +1,7 @@
 import 'dart:ui'; // For BackdropFilter
-import 'package:ar_test/views/auth/Signin.dart';
+import 'package:heritage_quest/views/auth/Signin.dart';
 import 'package:flutter/material.dart';
+import 'package:heritage_quest/views/auth/login.dart';
 
 import '../../utils/navbar.dart';
 
