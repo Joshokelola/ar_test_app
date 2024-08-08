@@ -2,6 +2,7 @@ import 'dart:ui'; // For BackdropFilter
 import 'package:ar_test/views/auth/Signin.dart';
 import 'package:ar_test/views/welcome.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 class SignUpPage extends StatefulWidget {
@@ -18,6 +19,55 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _confirmPasswordController = TextEditingController();
   bool _termsAccepted = false;
 
+final FirebaseAuth _auth = FirebaseAuth.instance;
+
+Future<void> _register() async {
+    if (_passwordController.text != _confirmPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Passwords do not match')),
+      );
+      return;
+    }
+
+    if (!_termsAccepted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('You must accept the terms and conditions')),
+      );
+      return;
+    }
+
+    try {
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      User? user = userCredential.user;
+
+      if (user != null) {
+        // Optionally update user profile
+        await user.updateDisplayName(_fullnameController.text);
+
+        // Navigate to the welcome screen or other page
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      String message;
+      if (e.code == 'email-already-in-use') {
+        message = 'The email is already in use.';
+      } else if (e.code == 'weak-password') {
+        message = 'The password is too weak.';
+      } else {
+        message = 'Registration failed. Please try again.';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
