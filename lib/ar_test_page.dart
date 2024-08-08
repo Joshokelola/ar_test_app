@@ -398,4 +398,10 @@ class ArTestPageState extends State<ArTestPage> {
   //TODO: Find a more performant way of keeping the tab alive.
   @override
   bool get wantKeepAlive => true;
+
+  // @override
+ // void dispose() {
+    // arCoreController.dispose();
+  //  super.dispose();
+ // }
 }
