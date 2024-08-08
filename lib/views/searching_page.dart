@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:heritage_quest/ar_test_page.dart';
 import 'package:flutter/material.dart';
+
+import '../ar_test_page.dart';
 
 class SearchingForTreasurePage extends StatefulWidget {
   const SearchingForTreasurePage({super.key});

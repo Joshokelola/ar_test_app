@@ -1,5 +1,6 @@
-import 'package:heritage_quest/models/treasures.dart';
 import 'package:vector_math/vector_math_64.dart';
+
+import 'models/treasures.dart';
 
 final List<Treasure> huntTreasures = [
   Treasure(

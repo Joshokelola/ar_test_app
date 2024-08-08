@@ -1,9 +1,11 @@
 import 'dart:async';
-import 'package:heritage_quest/database.dart';
-import 'package:heritage_quest/services/location.dart';
-import 'package:heritage_quest/services/treasure_location.dart';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+
+import '../database.dart';
+import '../services/location.dart';
+import '../services/treasure_location.dart';
 
 class LocationPage extends StatefulWidget {
   const LocationPage({Key? key}) : super(key: key);

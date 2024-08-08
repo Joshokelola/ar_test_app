@@ -151,11 +151,12 @@
 //   bool get wantKeepAlive => true;
 // }
 
-import 'package:heritage_quest/database.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
+
+import 'database.dart';
 
 class ArTestPage extends StatefulWidget {
   const ArTestPage({super.key});
@@ -186,13 +187,14 @@ class ArTestPageState extends State<ArTestPage> {
     arCoreController = controller;
     arCoreController.onPlaneTap = _handleOnPlaneTap;
     arCoreController.onNodeTap = _handleOnNodeTap;
-    arCoreController.addArCoreNode(ArCoreReferenceNode(
-      name: huntTreasures[10].name,
-      position: vector.Vector3(0, 0, -5),
-      scale: vector.Vector3(0.1, 0.1, 0.1),
-      objectUrl:
-          'https://github.com/Joshokelola/heritage_hunt/raw/main/assets/treasure%20models/igbo_odogwu_hand_fan_3d_model.glb',
-    ));
+    for (final treasure in huntTreasures) {
+      arCoreController.addArCoreNode(ArCoreReferenceNode(
+        name: treasure.name,
+        position: treasure.position,
+        scale: vector.Vector3(0.1, 0.1, 0.1),
+        objectUrl: treasure.modelUrl,
+      ));
+    }
     _addSphere(arCoreController);
   }
 

@@ -1,5 +1,5 @@
-import 'package:heritage_quest/utils/navbar.dart';
-import 'package:heritage_quest/views/splash.dart';
+
+import 'package:ar_test/views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,7 +9,6 @@ import 'views/onboarding.dart';
 import 'views/profile.dart';
 import 'views/settings.dart';
 import 'views/tutorial/leaderboard.dart';
-import 'views/tutorial/tutorial.dart';
 import 'views/welcome.dart';
 
 void main() async {
@@ -42,9 +41,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'splashscreen': (context) => const Splashscreen(),
         'onboarding': (context) => const OnboardingScreen(),
-        'bnav': (context) => const AppBottBar(),
         '/welcome': (context) => const WelcomeScreen(),
-        '/startHunt': (context) => const TutorialScreen(),
         '/profile': (context) => const ProfilePage(),
         '/leaderboard': (context) => const Leaderboard(),
         '/settings': (context) => const SettingsPage(),

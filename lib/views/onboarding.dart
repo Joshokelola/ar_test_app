@@ -1,7 +1,8 @@
-import 'package:heritage_quest/utils/constants.dart';
-import 'package:heritage_quest/views/auth/login.dart';
-import 'package:heritage_quest/views/auth/signup.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/constants.dart';
+import 'auth/login.dart';
+import 'auth/signup.dart';
 
 
 class OnboardingScreen extends StatelessWidget {

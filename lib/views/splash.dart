@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:heritage_quest/views/onboarding.dart';
 import 'package:flutter/material.dart';
+
+import 'auth/auth_option_screen.dart';
 
 
 class Splashscreen extends StatefulWidget {

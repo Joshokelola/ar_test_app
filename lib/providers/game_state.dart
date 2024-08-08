@@ -1,6 +1,6 @@
-import 'package:heritage_quest/models/treasures.dart';
 
 import '../database.dart';
+import '../models/treasures.dart';
 
 class GameState {
   final int score;
