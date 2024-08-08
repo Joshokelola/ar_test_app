@@ -1,21 +1,98 @@
 import 'dart:ui';
 
+import 'package:heritage_quest/ar_test_page.dart';
+import 'package:heritage_quest/models/treasures.dart';
 import 'package:heritage_quest/utils/constants.dart';
 import 'package:heritage_quest/views/profile.dart';
+import 'package:heritage_quest/models/treasures.dart';
+import 'package:heritage_quest/services/location.dart';
+import 'package:heritage_quest/services/treasure_location.dart';
 import 'package:heritage_quest/views/searching_page.dart';
 import 'package:heritage_quest/views/test_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:heritage_quest/views/auth/login.dart';
+import 'package:heritage_quest/views/leaderboard.dart';
+import 'package:heritage_quest/views/game_play.dart';
+import 'package:heritage_quest/views/inventory.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../ar_test_page.dart';
+import '..at_test_page.dart';
 import 'game_play.dart';
-import 'inventory.dart';
-import 'leaderboard.dart';
 
-class GameHome extends StatelessWidget {
+class GameHome extends StatefulWidget {
   const GameHome({super.key});
 
   @override
+  State<GameHome> createState() => _GameHomeState();
+}
+
+class _GameHomeState extends State<GameHome> {
+  final LocationService locationService = LocationService();
+  final HideTreasure treasureHider = HideTreasure();
+  late GameData _gameData;
+  late User _user;
+  late bool _isLoading;
+
+  @override
+  void initState() {
+    super.initState();
+    _isLoading = true;
+    _initializeGameData();
+  }
+
+  Future<void> _initializeGameData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    _gameData = GameData(prefs);
+
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      // Redirect to login if not authenticated
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+      return;
+    }
+
+    _user = user;
+
+    // Fetch current location and update treasures
+    Position currentLocation = await locationService.getCurrentPosition();
+    List<Treasure> treasures = treasureHider.placeArtifacts(
+        currentLocation.latitude, currentLocation.longitude);
+    _gameData.saveTreasures(treasures);
+
+    // Fetch user data from Firestore
+    await _fetchUserData(user.uid);
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future<void> _fetchUserData(String uid) async {
+    final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    if (doc.exists) {
+      final data = doc.data() as Map<String, dynamic>;
+      // You can process the user data here
+      // Example: _userPoints = data['points'] ?? 0;
+    } else {
+      // Handle the case where user data does not exist
+      print('User data does not exist');
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -50,23 +127,25 @@ class GameHome extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: (){
-                            Navigator.push(
+                          onTap: () {
+                            Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => const ProfilePage()),
+                              MaterialPageRoute(
+                                  builder: (context) => const ProfilePage()),
                             );
                           },
                           child: const CircleAvatar(
                             radius: 30,
                             backgroundImage:
-                                AssetImage('assets/avatar.jpg',),
+                            AssetImage('assets/avatar.jpg'),
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const LeaderboardPage()),
+                              MaterialPageRoute(
+                                  builder: (context) => const LeaderboardPage()),
                             );
                           },
                           child: Container(
@@ -114,20 +193,16 @@ class GameHome extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GameOptionCard('Start Hunt', 'assets/treasure.png',
-                                const LocationPage()),
-                            GameOptionCard('View Map',
-                                'assets/adventure_icon.png', const ArenaSelect()),
+                            GameOptionCard('Start Hunt', 'assets/treasure.png', const ArTestPage()),
+                            GameOptionCard('View Map', 'assets/adventure_icon.png', TreasureMap()),
                           ],
                         ),
                         const SizedBox(height: 24),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GameOptionCard('Artefacts',
-                                'assets/Diamond lime.png', const InventoryPage()),
-                            GameOptionCard('Quests',
-                                'assets/daily.png', const SearchingForTreasurePage()),
+                            GameOptionCard('Artefacts', 'assets/Diamond lime.png', const InventoryPage()),
+                            GameOptionCard('Quests', 'assets/daily.png', const ArTestPage()),
                           ],
                         ),
                       ],
@@ -154,7 +229,7 @@ class GameOptionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => page),
         );
@@ -183,9 +258,9 @@ class GameOptionCard extends StatelessWidget {
                 title,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500
                 ),
               ),
             ),
