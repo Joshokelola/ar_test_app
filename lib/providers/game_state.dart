@@ -1,6 +1,6 @@
-import 'package:ar_test/models/treasures.dart';
 
 import '../database.dart';
+import '../models/treasures.dart';
 
 class GameState {
   final int score;

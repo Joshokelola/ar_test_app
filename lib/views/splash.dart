@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:ar_test/views/onboarding.dart';
 import 'package:flutter/material.dart';
+
+import 'auth/auth_option_screen.dart';
 
 
 class Splashscreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _SplashscreenState extends State<Splashscreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image(
-                image: AssetImage('assets/treasure_chest.png'),
+                image: AssetImage('assets/8.png'),
               ),
             ],
           ),

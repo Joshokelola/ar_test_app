@@ -1,261 +1,113 @@
-import 'package:ar_test/ar_test_page.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ArenaSelect extends StatefulWidget {
-  const ArenaSelect({super.key});
+import '../models/treasures.dart';
+import '../shared_preferences.dart';
+import '../services/location.dart';
 
+class TreasureMap extends StatefulWidget {
   @override
-  State<ArenaSelect> createState() => _ArenaSelectState();
+  _TreasureMapState createState() => _TreasureMapState();
 }
 
-class _ArenaSelectState extends State<ArenaSelect> {
+class _TreasureMapState extends State<TreasureMap> {
+  late GameData _gameData;
+  final LocationService _locationService = LocationService();
+  late GoogleMapController _mapController;
+
+  LatLng _userLocation = const LatLng(0.0, 0.0);
+  final Set<Marker> _markers = {};
+  List<Treasure> _treasuresList = [];
+  BitmapDescriptor? _userMarkerIcon;
+  BitmapDescriptor? _treasureMarkerIcon;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeGameData();
+    _getUserLocation();
+    _loadMarkerIcons();
+  }
+
+  Future<void> _initializeGameData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    _gameData = GameData(prefs);
+    _treasuresList = await _gameData.getTreasureList();
+    _addTreasureMarkers(); // Add treasure markers after loading treasures
+  }
+
+  Future<void> _getUserLocation() async {
+    try {
+      final currentLocation = await _locationService.getCurrentPosition();
+      setState(() {
+        _userLocation =
+            LatLng(currentLocation.latitude!, currentLocation.longitude!);
+        _markers.clear(); // Clear markers before adding new ones
+        _markers.add(
+          Marker(
+            markerId: const MarkerId('user_location'),
+            position: _userLocation,
+            icon: _userMarkerIcon ??
+                BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueBlue), // User location marker
+          ),
+        );
+      });
+      if (_mapController != null) {
+        _mapController.animateCamera(
+          CameraUpdate.newLatLngZoom(_userLocation, 12),
+        );
+      }
+    } catch (e) {
+      // Handle the exception (e.g., location permission not granted)
+      print('Error getting location: $e');
+    }
+  }
+
+  void _addTreasureMarkers() {
+    for (var treasure in _treasuresList) {
+      final location = LatLng(treasure.latitude!, treasure.longitude!);
+      _markers.add(
+        Marker(
+          markerId: MarkerId('treasure_${treasure.id}'),
+          position: location,
+          icon: _treasureMarkerIcon ??
+              BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueViolet), // Treasure marker
+        ),
+      );
+    }
+    setState(() {}); // Trigger a rebuild to update the markers on the map
+  }
+
+  Future<void> _loadMarkerIcons() async {
+    _userMarkerIcon = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(size: Size(48, 48)), // Adjust size as needed
+      'assets/playericon.png',
+    );
+    _treasureMarkerIcon = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(size: Size(48, 48)), // Adjust size as needed
+      'assets/Diamond lime.png',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
-          'Welcome to Game Arena',
-
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+      appBar: AppBar(title: const Text('Treasure Map')),
+      body: GoogleMap(
+        onMapCreated: (controller) {
+          _mapController = controller;
+          // You might want to move this line into _getUserLocation()
+          // to avoid animating the camera before the location is fetched
+        },
+        initialCameraPosition: CameraPosition(
+          target: _userLocation,
+          zoom: 12.0,
         ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-              'Choose your play arena',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(8),
-                image: const DecorationImage(
-                  image: NetworkImage(
-                      'https://images.unsplash.com/photo-1524835005923-56700046e4a8?fit=crop&w=1052&q=80'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Stack(
-                children: [
-                  const Center(
-                    child: Text(
-                      'North Central',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    right: 10,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ArTestPage()),
-                        );
-                      },
-                      child: const Text('Go'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(8),
-                image: const DecorationImage(
-                  image: NetworkImage(
-                      'https://images.pexels.com/photos/20452526/pexels-photo-20452526/free-photo-of-men-during-dambe-competition.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Stack(
-                children: [
-                  const Center(
-                    child: Text(
-                      'North West (Hausa)',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    right: 10,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ArTestPage()),
-                        );
-                      },
-                      child: const Text('Go'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Additional content area
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(8),
-                image: const DecorationImage(
-                  image: NetworkImage('https://images.pexels.com/photos/18772923/pexels-photo-18772923/free-photo-of-students-of-al-amin-islamic-college-arriving-at-the-emirs-palace.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Stack(
-                children: [
-                  const Center(
-                    child: Text(
-                      'North East (Fulani)',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    right: 10,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ArTestPage()),
-                        );
-                      },
-                      child: const Text('Go'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(8),
-                image: const DecorationImage(
-                  image: NetworkImage('https://images.pexels.com/photos/22674728/pexels-photo-22674728/free-photo-of-the-national-theatre-nigeria.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Stack(
-                children: [
-                  const Center(
-                    child: Text(
-                      'South West (Yoruba)',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    right: 10,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ArTestPage()),
-                        );
-                      },
-                      child: const Text('Go'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(8),
-                image: const DecorationImage(
-                  image: NetworkImage('https://images.pexels.com/photos/27291194/pexels-photo-27291194/free-photo-of-a-group-of-people-in-african-costumes-dancing.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Stack(
-                children: [
-                  const Center(
-                    child: Text(
-                      'South East (Igbo)',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    right: 10,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ArTestPage()),
-                        );
-                      },
-                      child: const Text('Go'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(8),
-                image: const DecorationImage(
-                  image: NetworkImage('https://i.pinimg.com/originals/1d/82/04/1d8204482c819e7694e2ab960fcae3b6.jpg',),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Stack(
-                children: [
-                  const Center(
-                    child: Text(
-                      'South South (Ijaw)',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    right: 10,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ArTestPage()),
-                        );
-                      },
-                      child: const Text('Go'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            
-          ],
-        ),
+        markers: _markers,
       ),
     );
   }
