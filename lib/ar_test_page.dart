@@ -151,6 +151,7 @@
 //   bool get wantKeepAlive => true;
 // }
 
+import 'package:ar_test/database.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -229,13 +230,9 @@ class ArTestPageState extends State<ArTestPage> {
   }
 
   void _addSphere(ArCoreController controller) {
-<<<<<<<<< Temporary merge branch 1
     final material = ArCoreMaterial(
         color: const Color.fromARGB(120, 66, 134, 244));
-=========
-    final material =
-        ArCoreMaterial(color: const Color.fromARGB(120, 66, 134, 244));
->>>>>>>>> Temporary merge branch 2
+
     final sphere = ArCoreSphere(
       materials: [material],
       radius: 0.1,
@@ -247,23 +244,6 @@ class ArTestPageState extends State<ArTestPage> {
     controller.addArCoreNode(node);
   }
 
-<<<<<<<<< Temporary merge branch 1
-  void _addCylindre(ArCoreController controller) {
-    final material = ArCoreMaterial(
-      color: Colors.red,
-      reflectance: 1.0,
-    );
-    final cylindre = ArCoreCylinder(
-      materials: [material],
-      radius: 0.5,
-      height: 0.3,
-    );
-    final node = ArCoreNode(
-      shape: cylindre,
-      position: vector.Vector3(0.0, -0.5, -2.0),
-    );
-    controller.addArCoreNode(node);
-  }
 
   void _addCube(ArCoreController controller) {
     final material = ArCoreMaterial(
@@ -286,7 +266,7 @@ class ArTestPageState extends State<ArTestPage> {
     // arCoreController.dispose();
   //  super.dispose();
  // }
-=========
+
 // void _addCylindre(ArCoreController controller) {
 //   final material = ArCoreMaterial(
 //     color: Colors.red,
@@ -319,5 +299,5 @@ class ArTestPageState extends State<ArTestPage> {
 //   );
 //   controller.addArCoreNode(node);
 // }
->>>>>>>>> Temporary merge branch 2
+
 }

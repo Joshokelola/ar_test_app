@@ -69,7 +69,8 @@ class _GameHomeState extends State<GameHome> {
   }
 
   Future<void> _fetchUserData(String uid) async {
-    final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final doc =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
     if (doc.exists) {
       final data = doc.data() as Map<String, dynamic>;
       // You can process the user data here
@@ -83,7 +84,7 @@ class _GameHomeState extends State<GameHome> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
     }
@@ -131,8 +132,7 @@ class _GameHomeState extends State<GameHome> {
                           },
                           child: const CircleAvatar(
                             radius: 30,
-                            backgroundImage:
-                            AssetImage('assets/avatar.jpg'),
+                            backgroundImage: AssetImage('assets/avatar.jpg'),
                           ),
                         ),
                         GestureDetector(
@@ -140,11 +140,13 @@ class _GameHomeState extends State<GameHome> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const LeaderboardPage()),
+                                  builder: (context) =>
+                                      const LeaderboardPage()),
                             );
                           },
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(24),
                               color: colorPrimary,
@@ -183,21 +185,25 @@ class _GameHomeState extends State<GameHome> {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    const Column(
+                    Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GameOptionCard('Start Hunt', 'assets/treasure.png', const ArTestPage()),
-                            GameOptionCard('View Map', 'assets/adventure_icon.png', TreasureMap()),
+                            const GameOptionCard('Start Hunt',
+                                'assets/treasure.png', ArTestPage()),
+                            GameOptionCard('View Map',
+                                'assets/adventure_icon.png', TreasureMap()),
                           ],
                         ),
-                        SizedBox(height: 24),
-                        Row(
+                        const SizedBox(height: 24),
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GameOptionCard('Artefacts', 'assets/Diamond lime.png', const InventoryPage()),
-                            GameOptionCard('Quests', 'assets/daily.png', const ArTestPage()),
+                            GameOptionCard('Artefacts',
+                                'assets/Diamond lime.png', InventoryPage()),
+                            GameOptionCard(
+                                'Quests', 'assets/daily.png', ArTestPage()),
                           ],
                         ),
                       ],
@@ -255,8 +261,7 @@ class GameOptionCard extends StatelessWidget {
                 style: const TextStyle(
                     fontSize: 18,
                     color: Colors.black,
-                    fontWeight: FontWeight.w500
-                ),
+                    fontWeight: FontWeight.w500),
               ),
             ),
           ],

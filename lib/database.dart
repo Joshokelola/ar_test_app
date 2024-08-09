@@ -1,5 +1,6 @@
+import 'package:ar_test/models/treasures.dart';
 import 'package:vector_math/vector_math_64.dart';
->>>>>>>>> Temporary merge branch 2
+
 
 final List<Treasure> huntTreasures = [
   Treasure(
