@@ -39,7 +39,7 @@ class _SplashscreenState extends State<Splashscreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image(
-                image: AssetImage('assets/treasure_chest.png'),
+                image: AssetImage('assets/8.png'),
               ),
             ],
           ),
