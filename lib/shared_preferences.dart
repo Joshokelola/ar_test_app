@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ar_test/models/treasures.dart';
+import '../models/treasures.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GameData {
@@ -18,7 +18,9 @@ class GameData {
 
   Future<void> saveTreasures(List<Treasure> treasures) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> jsonStringList = treasures.map((person) => jsonEncode(person.toJson())).toList();
+    List<String> jsonStringList = 
+    treasures.map((person) => 
+    jsonEncode(person.toJson())).toList();
     await prefs.setStringList('treasure_list', jsonStringList);
   }
 
@@ -27,7 +29,9 @@ class GameData {
     List<String>? jsonStringList = prefs.getStringList('treasure_list');
 
     if (jsonStringList != null) {
-      return jsonStringList.map((jsonString) => Treasure.fromJson(jsonDecode(jsonString))).toList();
+      return jsonStringList
+      .map((jsonString) => Treasure.fromJson(jsonDecode(jsonString)))
+      .toList();
     }
 
     return [];

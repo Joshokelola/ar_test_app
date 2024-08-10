@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:geolocator/geolocator.dart';
 
 import 'dart:math' as math;
@@ -14,14 +15,14 @@ class LocationService {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         // Permissions denied, can't proceed
-        print('Location permissions are denied');
+        log('Location permissions are denied');
         return false;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions denied forever, can't proceed
-      print('Location permissions are denied forever');
+      log('Location permissions are denied forever');
       return false;
     }
 
@@ -31,8 +32,10 @@ class LocationService {
 
   // Check if location permissions are granted
   Future<bool> hasPermission() async {
-    LocationPermission permission = await Geolocator.checkPermission();
-    return permission == LocationPermission.whileInUse || permission == LocationPermission.always;
+    LocationPermission permission = await 
+    Geolocator.checkPermission();
+    return permission == LocationPermission.whileInUse || 
+    permission == LocationPermission.always;
   }
 
   Stream<Position> getUserLocationUpdates() {
@@ -70,7 +73,7 @@ class LocationService {
         desiredAccuracy: LocationAccuracy.high,
       );
     } catch (e) {
-      print('Error fetching current position: $e');
+      log('Error fetching current position: $e');
       rethrow;
     }
   }

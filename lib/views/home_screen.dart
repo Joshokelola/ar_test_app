@@ -1,13 +1,14 @@
 import 'dart:ui';
-import 'package:ar_test/models/treasures.dart';
-import 'package:ar_test/services/location.dart';
-import 'package:ar_test/services/treasure_location.dart';
-import 'package:ar_test/utils/constants.dart';
-import 'package:ar_test/views/profile.dart';
-import 'package:ar_test/views/auth/login.dart';
-import 'package:ar_test/views/leaderboard.dart';
-import 'package:ar_test/views/game_play.dart';
-import 'package:ar_test/views/inventory.dart';
+import 'dart:developer';
+import '/models/treasures.dart';
+import '/services/location.dart';
+import '/services/treasure_location.dart';
+import '/utils/constants.dart';
+import '/views/profile.dart';
+import '/views/auth/login.dart';
+import '/views/leaderboard.dart';
+import '/views/game_play.dart';
+import '/views/inventory.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -44,14 +45,19 @@ class _GameHomeState extends State<GameHome> {
 
     final User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
-      // Redirect to login if not authenticated
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
+         // Redirect to login if not authenticated
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => const LoginPage()),
+      // );
+      Future.delayed(const Duration(seconds: 1)).then(
+        (value) => Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        ),
       );
       return;
     }
-
     _user = user;
 
     // Fetch current location and update treasures
@@ -69,21 +75,22 @@ class _GameHomeState extends State<GameHome> {
   }
 
   Future<void> _fetchUserData(String uid) async {
-    final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final doc = 
+    await FirebaseFirestore.instance.collection('users').doc(uid).get();
     if (doc.exists) {
       final data = doc.data() as Map<String, dynamic>;
       // You can process the user data here
       // Example: _userPoints = data['points'] ?? 0;
     } else {
       // Handle the case where user data does not exist
-      print('User data does not exist');
+      log('User data does not exist');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
     }
