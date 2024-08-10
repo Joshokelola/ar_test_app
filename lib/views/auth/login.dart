@@ -1,6 +1,6 @@
-import 'package:ar_test/utils/constants.dart';
-import 'package:ar_test/views/auth/signup.dart';
-import 'package:ar_test/views/home_screen.dart';
+import 'package:heritage_quest/utils/constants.dart';
+import 'package:heritage_quest/views/auth/signup.dart';
+import 'package:heritage_quest/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -8,7 +8,7 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -38,7 +38,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 30),
-
                   const Text(
                     'Get back To Hunting!',
                     style: TextStyle(
@@ -106,18 +105,25 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () async {
                         if (_formKey.currentState?.validate() ?? false) {
                           try {
-                            UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+                            UserCredential userCredential =
+                                await _auth.signInWithEmailAndPassword(
                               email: _emailController.text.trim(),
                               password: _passwordController.text.trim(),
                             );
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (context) => const GameHome()),
-                            );
+                            if (context.mounted) {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const GameHome()),
+                              );
+                            }
                           } catch (e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Failed to sign in: $e')),
-                            );
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('Failed to sign in: $e')),
+                              );
+                            }
                           }
                         }
                       },
@@ -140,7 +146,8 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const SignupPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const SignupPage()),
                       );
                     },
                     child: const Text(

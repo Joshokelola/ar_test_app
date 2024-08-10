@@ -1,5 +1,5 @@
-
-import 'package:ar_test/views/splash.dart';
+import 'package:heritage_quest/views/auth/login.dart';
+import 'package:heritage_quest/views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,9 +14,9 @@ import 'views/welcome.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/leaderboard': (context) => const Leaderboard(),
         '/settings': (context) => const SettingsPage(),
         '/credits': (context) => const CreditsPage(),
+        '/login': (context) => const LoginPage(),
       },
     );
   }

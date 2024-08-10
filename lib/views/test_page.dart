@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,10 +9,11 @@ import '../services/location.dart';
 import '../services/treasure_location.dart';
 
 class LocationPage extends StatefulWidget {
-  const LocationPage({Key? key}) : super(key: key);
+  // const LocationPage({Key? key}) : super(key: key);
+  const LocationPage({super.key});
 
   @override
-  _LocationPageState createState() => _LocationPageState();
+  State<LocationPage> createState() => _LocationPageState();
 }
 
 class _LocationPageState extends State<LocationPage> {
@@ -79,7 +81,7 @@ class _LocationPageState extends State<LocationPage> {
       //   });
       // });
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 
@@ -100,11 +102,10 @@ class _LocationPageState extends State<LocationPage> {
       //       debugPrint('treasure-lat: ${treasure.latitude} lng: ${treasure.longitude}');
       //     }
 
-      
       treasure.placeArtifacts(
           _currentPosition!.latitude, _currentPosition!.longitude);
-      var distance = Geolocator.distanceBetween(
-          playerLat!, playerLng!, huntTreasures[0].latitude!, huntTreasures[0].longitude!);
+      var distance = Geolocator.distanceBetween(playerLat!, playerLng!,
+          huntTreasures[0].latitude!, huntTreasures[0].longitude!);
       debugPrint('Distance - $distance');
       setState(() {
         withinRad = distance.toString();
