@@ -1,8 +1,8 @@
-
-import 'package:ar_test/views/splash.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:heritage_quest/views/splash.dart';
+
 import 'firebase_options.dart';
 import 'views/credits.dart';
 import 'views/onboarding.dart';
@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorSchemeSeed: Colors.white,
-        useMaterial3: true,
       ),
       initialRoute: 'splashscreen',
       routes: {

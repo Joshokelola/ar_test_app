@@ -1,17 +1,18 @@
 import 'dart:ui';
-import 'package:ar_test/models/treasures.dart';
-import 'package:ar_test/services/location.dart';
-import 'package:ar_test/services/treasure_location.dart';
-import 'package:ar_test/utils/constants.dart';
-import 'package:ar_test/views/profile.dart';
-import 'package:ar_test/views/auth/login.dart';
-import 'package:ar_test/views/leaderboard.dart';
-import 'package:ar_test/views/game_play.dart';
-import 'package:ar_test/views/inventory.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:heritage_quest/models/treasures.dart';
+import 'package:heritage_quest/services/location.dart';
+import 'package:heritage_quest/services/treasure_location.dart';
+import 'package:heritage_quest/utils/constants.dart';
+import 'package:heritage_quest/views/auth/login.dart';
+import 'package:heritage_quest/views/game_play.dart';
+import 'package:heritage_quest/views/inventory.dart';
+import 'package:heritage_quest/views/leaderboard.dart';
+import 'package:heritage_quest/views/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ar_test_page.dart';
@@ -69,7 +70,8 @@ class _GameHomeState extends State<GameHome> {
   }
 
   Future<void> _fetchUserData(String uid) async {
-    final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final doc =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
     if (doc.exists) {
       final data = doc.data() as Map<String, dynamic>;
       // You can process the user data here
@@ -83,7 +85,7 @@ class _GameHomeState extends State<GameHome> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
     }
@@ -131,8 +133,7 @@ class _GameHomeState extends State<GameHome> {
                           },
                           child: const CircleAvatar(
                             radius: 30,
-                            backgroundImage:
-                            AssetImage('assets/avatar.jpg'),
+                            backgroundImage: AssetImage('assets/avatar.jpg'),
                           ),
                         ),
                         GestureDetector(
@@ -140,11 +141,13 @@ class _GameHomeState extends State<GameHome> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const LeaderboardPage()),
+                                  builder: (context) =>
+                                      const LeaderboardPage()),
                             );
                           },
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(24),
                               color: colorPrimary,
@@ -188,16 +191,23 @@ class _GameHomeState extends State<GameHome> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GameOptionCard('Start Hunt', 'assets/treasure.png', const ArTestPage()),
-                            GameOptionCard('View Map', 'assets/adventure_icon.png', TreasureMap()),
+                            const GameOptionCard(
+                              'Start Hunt',
+                              'assets/treasure.png',
+                              ArTestPage(),
+                            ),
+                            GameOptionCard('View Map',
+                                'assets/adventure_icon.png', TreasureMap()),
                           ],
                         ),
                         const SizedBox(height: 24),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GameOptionCard('Artefacts', 'assets/Diamond lime.png', const InventoryPage()),
-                            GameOptionCard('Quests', 'assets/daily.png', const ArTestPage()),
+                            GameOptionCard('Artefacts',
+                                'assets/Diamond lime.png', InventoryPage()),
+                            GameOptionCard(
+                                'Quests', 'assets/daily.png', ArTestPage()),
                           ],
                         ),
                       ],
@@ -218,7 +228,7 @@ class GameOptionCard extends StatelessWidget {
   final String icon;
   final Widget page;
 
-  GameOptionCard(this.title, this.icon, this.page);
+  const GameOptionCard(this.title, this.icon, this.page, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -255,8 +265,7 @@ class GameOptionCard extends StatelessWidget {
                 style: const TextStyle(
                     fontSize: 18,
                     color: Colors.black,
-                    fontWeight: FontWeight.w500
-                ),
+                    fontWeight: FontWeight.w500),
               ),
             ),
           ],
