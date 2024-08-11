@@ -41,51 +41,47 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: key,
-    appId: id,
-    messagingSenderId: '15817954716',
-    projectId: 'heritage-quest',
-    authDomain: 'heritage-quest.firebaseapp.com',
-    storageBucket: 'heritage-quest.appspot.com',
-    measurementId: 'G-6JSV16GJ9N',
+    apiKey: 'AIzaSyDltVNiONAuT2nBZd5B4HMVxyMc89dW_yE',
+    appId: '1:486277504966:web:607337e730589e89841cc7',
+    messagingSenderId: '486277504966',
+    projectId: 'ar-quest-1a2b',
+    authDomain: 'ar-quest-1a2b.firebaseapp.com',
+    storageBucket: 'ar-quest-1a2b.appspot.com',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: key,
-    appId: id,
-    messagingSenderId: '15817954716',
-    projectId: 'heritage-quest',
-    storageBucket: 'heritage-quest.appspot.com',
-    iosClientId: '15817954716-hnpelubqkm8ihboek465vchh7ld2o1js.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDmQSo-rySlMvD53nzNBiPu6hbEO3J2NOE',
+    appId: '1:486277504966:ios:e54b56e0b6b9d156841cc7',
+    messagingSenderId: '486277504966',
+    projectId: 'ar-quest-1a2b',
+    storageBucket: 'ar-quest-1a2b.appspot.com',
     iosBundleId: 'com.example.arTest',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: key,
-    appId: id,
-    messagingSenderId: '15817954716',
-    projectId: 'heritage-quest',
-    authDomain: 'heritage-quest.firebaseapp.com',
-    storageBucket: 'heritage-quest.appspot.com',
-    measurementId: 'G-VK6VXYNYCG',
+    apiKey: 'AIzaSyDltVNiONAuT2nBZd5B4HMVxyMc89dW_yE',
+    appId: '1:486277504966:web:35cc83a0cbb328f6841cc7',
+    messagingSenderId: '486277504966',
+    projectId: 'ar-quest-1a2b',
+    authDomain: 'ar-quest-1a2b.firebaseapp.com',
+    storageBucket: 'ar-quest-1a2b.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: key,
-    appId: id,
-    messagingSenderId: '15817954716',
-    projectId: 'heritage-quest',
-    storageBucket: 'heritage-quest.appspot.com',
-    iosClientId: '15817954716-hnpelubqkm8ihboek465vchh7ld2o1js.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAwLA2Lt-OknuwRcw1Dza_Kc840-9COWoA',
+    appId: '1:650875990169:ios:01399c1a9e9c5fc5580808',
+    messagingSenderId: '650875990169',
+    projectId: 'heritage-quest-1a2b',
+    storageBucket: 'heritage-quest-1a2b.appspot.com',
     iosBundleId: 'com.example.arTest',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: key,
-    appId: id,
-    messagingSenderId: '15817954716',
-    projectId: 'heritage-quest',
-    storageBucket: 'heritage-quest.appspot.com',
+    apiKey: 'AIzaSyDTAfJ2p8cH-cFkgJULGGHH7cYg9o0nI7I',
+    appId: '1:650875990169:android:13235827f2d329fe580808',
+    messagingSenderId: '650875990169',
+    projectId: 'heritage-quest-1a2b',
+    storageBucket: 'heritage-quest-1a2b.appspot.com',
   );
 
 }
