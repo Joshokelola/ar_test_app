@@ -1,7 +1,8 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 
-import '../ar_test_page.dart';
+import '../shared/ar_test_page.dart';
 
 class SearchingForTreasurePage extends StatefulWidget {
   const SearchingForTreasurePage({super.key});
@@ -37,10 +38,12 @@ class _SearchingForTreasurePageState extends State<SearchingForTreasurePage> {
               height: 400,
               width: 300,
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(!_showActionButton
-                          ? 'assets/searching.png'
-                          : 'assets/found_treasure.png'))),
+                image: DecorationImage(
+                  image: AssetImage(!_showActionButton
+                      ? 'assets/searching.png'
+                      : 'assets/found_treasure.png'),
+                ),
+              ),
             ),
           ),
           const SizedBox(
@@ -69,7 +72,8 @@ class _SearchingForTreasurePageState extends State<SearchingForTreasurePage> {
             ),
           ),
           _showActionButton
-              ? Text('You seem to have found the location of the treasure.')
+              ? const Text(
+                  'You seem to have found the location of the treasure.')
               : Container(),
           // Conditionally display FloatingActionButton based on _showActionButton
         ],
@@ -77,7 +81,7 @@ class _SearchingForTreasurePageState extends State<SearchingForTreasurePage> {
       floatingActionButton: Visibility(
         visible: _showActionButton,
         child: FloatingActionButton.extended(
-          label: Text('Find in AR'),
+          label: const Text('Find in AR'),
           onPressed: () {
             // Handle FAB click action here (e.g., show a success message)
             Navigator.push(context, MaterialPageRoute(builder: (_) {

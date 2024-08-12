@@ -1,18 +1,21 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/treasures.dart';
-import '../shared_preferences.dart';
 import '../services/location.dart';
+import '../shared/shared_preferences.dart';
 
 class TreasureMap extends StatefulWidget {
+  const TreasureMap({super.key});
+
   @override
-  _TreasureMapState createState() => _TreasureMapState();
+  TreasureMapState createState() => TreasureMapState();
 }
 
-class _TreasureMapState extends State<TreasureMap> {
+class TreasureMapState extends State<TreasureMap> {
   late GameData _gameData;
   final LocationService _locationService = LocationService();
   late GoogleMapController _mapController;
@@ -43,7 +46,7 @@ class _TreasureMapState extends State<TreasureMap> {
       final currentLocation = await _locationService.getCurrentPosition();
       setState(() {
         _userLocation =
-            LatLng(currentLocation.latitude!, currentLocation.longitude!);
+            LatLng(currentLocation.latitude, currentLocation.longitude);
         _markers.clear(); // Clear markers before adding new ones
         _markers.add(
           Marker(
@@ -55,14 +58,12 @@ class _TreasureMapState extends State<TreasureMap> {
           ),
         );
       });
-      if (_mapController != null) {
-        _mapController.animateCamera(
-          CameraUpdate.newLatLngZoom(_userLocation, 12),
-        );
-      }
+      _mapController.animateCamera(
+        CameraUpdate.newLatLngZoom(_userLocation, 12),
+      );
     } catch (e) {
       // Handle the exception (e.g., location permission not granted)
-      print('Error getting location: $e');
+      log('Error getting location: $e');
     }
   }
 
@@ -83,11 +84,11 @@ class _TreasureMapState extends State<TreasureMap> {
   }
 
   Future<void> _loadMarkerIcons() async {
-    _userMarkerIcon = await BitmapDescriptor.fromAssetImage(
+    _userMarkerIcon = await BitmapDescriptor.asset(
       const ImageConfiguration(size: Size(48, 48)), // Adjust size as needed
       'assets/playericon.png',
     );
-    _treasureMarkerIcon = await BitmapDescriptor.fromAssetImage(
+    _treasureMarkerIcon = await BitmapDescriptor.asset(
       const ImageConfiguration(size: Size(48, 48)), // Adjust size as needed
       'assets/Diamond lime.png',
     );

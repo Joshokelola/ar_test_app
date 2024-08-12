@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import '../database.dart';
+import '../shared/database.dart';
 import '../models/treasures.dart';
 
 class HideTreasure {

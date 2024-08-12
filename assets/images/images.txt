@@ -1,0 +1,2 @@
+## This should have all the images in the project. 
+## Not adding them now cos of imports in the code
