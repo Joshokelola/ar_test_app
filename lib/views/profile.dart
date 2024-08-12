@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,10 @@ class _ProfilePageState extends State<ProfilePage> {
       throw Exception('User not logged in');
     }
 
-    final doc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
     if (doc.exists) {
       return doc.data() as Map<String, dynamic>;
     } else {
@@ -46,17 +51,19 @@ class _ProfilePageState extends State<ProfilePage> {
           future: _userDataFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (!snapshot.hasData) {
-              return Center(child: Text('No data available'));
+              return const Center(child: Text('No data available'));
             }
 
             final data = snapshot.data!;
             final totalScore = data['points'] ?? 0;
             final collectionCount = data['collection'] ?? 0;
             final levelProgress = data['levelProgress'] ?? 0;
+
+            log(levelProgress);
 
             return SingleChildScrollView(
               child: Padding(
@@ -70,7 +77,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           const CircleAvatar(
                             radius: 50,
-                            backgroundImage: AssetImage('assets/m1.png'), // Add your profile image asset
+                            backgroundImage: AssetImage(
+                                'assets/m1.png'), // Add your profile image asset
                           ),
                           const SizedBox(height: 10),
                           Text(
@@ -166,7 +174,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         Container(
                           height: 10,
-                          width: MediaQuery.of(context).size.width * 0.68, // 68% of the width
+                          width: MediaQuery.of(context).size.width *
+                              0.68, // 68% of the width
                           decoration: BoxDecoration(
                             color: Colors.yellow[700],
                             borderRadius: BorderRadius.circular(5),
@@ -197,7 +206,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const GameHome()),
+                              MaterialPageRoute(
+                                  builder: (context) => const GameHome()),
                             );
                           },
                           child: const Text(
@@ -212,7 +222,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(height: 10),
                     const ListTile(
                       leading: CircleAvatar(
-                        backgroundImage: AssetImage('assets/m1.png'), // Add your game image asset
+                        backgroundImage: AssetImage(
+                            'assets/m1.png'), // Add your game image asset
                       ),
                       title: Text('Fifa Online'),
                       subtitle: Text('15 Oct 2021'),
@@ -227,7 +238,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const ListTile(
                       leading: CircleAvatar(
-                        backgroundImage: AssetImage('assets/a1.png'), // Add your game image asset
+                        backgroundImage: AssetImage(
+                            'assets/a1.png'), // Add your game image asset
                       ),
                       title: Text('Archery Battle'),
                       subtitle: Text('9 Oct 2021'),

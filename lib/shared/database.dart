@@ -1,6 +1,6 @@
 import 'package:vector_math/vector_math_64.dart';
 
-import 'models/treasures.dart';
+import '../models/treasures.dart';
 
 final List<Treasure> huntTreasures = [
   Treasure(

@@ -21,7 +21,7 @@ class InventoryPage extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             return Container(
-              margin: EdgeInsets.all(12),
+              margin: const EdgeInsets.all(12),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

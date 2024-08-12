@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,8 +16,8 @@ import 'package:heritage_quest/views/leaderboard.dart';
 import 'package:heritage_quest/views/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../ar_test_page.dart';
-import '../shared_preferences.dart';
+import '../shared/ar_test_page.dart';
+import '../shared/shared_preferences.dart';
 
 class GameHome extends StatefulWidget {
   const GameHome({super.key});
@@ -46,10 +47,12 @@ class _GameHomeState extends State<GameHome> {
     final User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
       // Redirect to login if not authenticated
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+      }
       return;
     }
 
@@ -74,11 +77,12 @@ class _GameHomeState extends State<GameHome> {
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
     if (doc.exists) {
       final data = doc.data() as Map<String, dynamic>;
+      log(data.isNotEmpty.toString());
       // You can process the user data here
       // Example: _userPoints = data['points'] ?? 0;
     } else {
       // Handle the case where user data does not exist
-      print('User data does not exist');
+      log('User data does not exist');
     }
   }
 
@@ -186,12 +190,12 @@ class _GameHomeState extends State<GameHome> {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    Column(
+                    const Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const GameOptionCard(
+                            GameOptionCard(
                               'Start Hunt',
                               'assets/treasure.png',
                               ArTestPage(),
@@ -200,8 +204,8 @@ class _GameHomeState extends State<GameHome> {
                                 'assets/adventure_icon.png', TreasureMap()),
                           ],
                         ),
-                        const SizedBox(height: 24),
-                        const Row(
+                        SizedBox(height: 24),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GameOptionCard('Artefacts',

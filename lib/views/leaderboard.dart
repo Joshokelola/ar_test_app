@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../services/firebase_service.dart';
 
@@ -8,7 +7,7 @@ class LeaderboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LeaderboardService _leaderboardService = LeaderboardService();
+    final LeaderboardService leaderboardService = LeaderboardService();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -21,7 +20,7 @@ class LeaderboardPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: FutureBuilder<List<Map<String, dynamic>>>(
-            future: _leaderboardService.fetchLeaderboard(),
+            future: leaderboardService.fetchLeaderboard(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
@@ -38,9 +37,10 @@ class LeaderboardPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final user = leaderboard[index];
                   return ListTile(
-                    leading: CircleAvatar(
+                    leading: const CircleAvatar(
                       radius: 32,
-                      backgroundImage: AssetImage('assets/default_avatar.png'), // Placeholder for user avatars
+                      backgroundImage: AssetImage(
+                          'assets/default_avatar.png'), // Placeholder for user avatars
                     ),
                     title: Text(user['name'] ?? 'Unknown'),
                     subtitle: Text('Score: ${user['points']}'),

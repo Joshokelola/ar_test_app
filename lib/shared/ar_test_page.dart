@@ -203,7 +203,8 @@ class ArTestPageState extends State<ArTestPage> {
         context: context,
         builder: (_) {
           return AlertDialog(
-            content: Text('You found $name item. \n rarity:${huntTreasures[10].rarity}'),
+            content: Text(
+                'You found $name item. \n rarity:${huntTreasures[10].rarity}'),
           );
         });
   }
@@ -229,7 +230,8 @@ class ArTestPageState extends State<ArTestPage> {
   }
 
   void _addSphere(ArCoreController controller) {
-    final material = ArCoreMaterial(color: Color.fromARGB(120, 66, 134, 244));
+    final material =
+        ArCoreMaterial(color: const Color.fromARGB(120, 66, 134, 244));
     final sphere = ArCoreSphere(
       materials: [material],
       radius: 0.1,
